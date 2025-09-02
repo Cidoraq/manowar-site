@@ -1,0 +1,649 @@
+# Directorates Subpages for Man O' War Nigeria
+
+I'll create the subpages for all the directorates with consistent styling and proper navigation.
+
+## 1. Create Directorates Main Page
+
+Create a folder named `directorates` and inside it, create an `index.html` file:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Directorates - Man O' War Nigeria</title>
+    <link href="../styles/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1E40AF',
+                        primaryDark: '#1E3A8A',
+                        secondary: '#FFFFFF',
+                        accent: '#F59E0B',
+                        light: '#F3F4F6',
+                        dark: '#1F2937',
+                        gray: '#6B7280',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-4 mb-2 md:mb-0">
+                    <span><i class="fas fa-phone mr-1"></i> +234 803 123 4567</span>
+                    <span><i class="fas fa-envelope mr-1"></i> info@manowarng.org</span>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-white hover:text-accent transition"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white hover:text-accent transition"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-white hover:text-accent transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white hover:text-accent transition"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-2xl font-bold mr-3">MW</div>
+                    <div class="logo-text">
+                        <h1 class="text-xl font-bold text-primary">MAN O' WAR NIGERIA</h1>
+                        <p class="text-xs text-gray-600">Service, Discipline, and Patriotism</p>
+                    </div>
+                </div>
+                
+                <div class="hidden lg:flex space-x-8">
+                    <a href="index.html" class="nav-link font-medium">Home</a>
+                    <a href="about.html" class="nav-link font-medium">About Us</a>
+                    <a href="courses.html" class="nav-link font-medium">Courses</a>
+                    <a href="../directorates/index.html" class="nav-link font-medium">Directorates</a>
+                    <a href="formation.html" class="nav-link font-medium">Formation</a>
+                    <a href="news.html" class="nav-link font-medium">News</a>
+                    <a href="gallery.html" class="nav-link font-medium">Gallery</a>
+                    <a href="contact.html" class="nav-link font-medium">Contact Us</a>
+                    <a href="portal.html" class="nav-link font-medium">Portal</a>
+                </div>
+                
+                <button class="lg:hidden text-primary text-2xl" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container mx-auto px-4">
+            <ol>
+                <li><a href="index.html" class="text-primary hover:text-primary-dark transition">Home</a></li>
+                <li class="text-gray-600">Directorates</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="directorates-hero text-white py-20 md:py-28">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="hero-title text-3xl md:text-4xl lg:text-5xl font-bold mb-6">Directorates</h2>
+            <p class="hero-text text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Our specialized departments driving the mission of Man O' War Nigeria</p>
+        </div>
+    </section>
+
+    <!-- Directorates Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-center mb-12">Our Directorates</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Admin & Logistics -->
+                <div class="directorate-card">
+                    <div class="flex items-center mb-4">
+                        <div class="directorate-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-primary">Admin & Logistics</h3>
+                    </div>
+                    <p class="text-gray-700 mb-4">Overseeing administrative functions, resource management, and logistical support for all operations.</p>
+                    <a href="admin-logistics/index.html" class="text-primary font-medium hover:text-primary-dark transition duration-300 inline-flex items-center">
+                        Learn More <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Operations & Rescue -->
+                <div class="directorate-card">
+                    <div class="flex items-center mb-4">
+                        <div class="directorate-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-primary">Operations & Rescue</h3>
+                    </div>
+                    <p class="text-gray-700 mb-4">Coordinating emergency response, rescue operations, and field activities across the nation.</p>
+                    <a href="operations-rescue/index.html" class="text-primary font-medium hover:text-primary-dark transition duration-300 inline-flex items-center">
+                        Learn More <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Account & Finance -->
+                <div class="directorate-card">
+                    <div class="flex items-center mb-4">
+                        <div class="directorate-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-primary">Account & Finance</h3>
+                    </div>
+                    <p class="text-gray-700 mb-4">Managing financial resources, budgeting, and accounting functions for the organization.</p>
+                    <a href="account-finance/index.html" class="text-primary font-medium hover:text-primary-dark transition duration-300 inline-flex items-center">
+                        Learn More <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Legal Service & Provost -->
+                <div class="directorate-card">
+                    <div class="flex items-center mb-4">
+                        <div class="directorate-icon">
+                            <i class="fas fa-gavel"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-primary">Legal Service & Provost</h3>
+                    </div>
+                    <p class="text-gray-700 mb-4">Providing legal counsel, maintaining discipline, and ensuring compliance with regulations.</p>
+                    <a href="legal-provost/index.html" class="text-primary font-medium hover:text-primary-dark transition duration-300 inline-flex items-center">
+                        Learn More <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Public Relations -->
+                <div class="directorate-card">
+                    <div class="flex items-center mb-4">
+                        <div class="directorate-icon">
+                            <i class="fas fa-microphone"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-primary">Public Relations</h3>
+                    </div>
+                    <p class="text-gray-700 mb-4">Managing public image, media relations, and community engagement initiatives.</p>
+                    <a href="public-relations/index.html" class="text-primary font-medium hover:text-primary-dark transition duration-300 inline-flex items-center">
+                        Learn More <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Communications & Media -->
+                <div class="directorate-card">
+                    <div class="flex items-center mb-4">
+                        <div class="directorate-icon">
+                            <i class="fas fa-broadcast-tower"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-primary">Communications & Media</h3>
+                    </div>
+                    <p class="text-gray-700 mb-4">Handling internal and external communications, media production, and digital presence.</p>
+                    <a href="communications-media/index.html" class="text-primary font-medium hover:text-primary-dark transition duration-300 inline-flex items-center">
+                        Learn More <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Training -->
+                <div class="directorate-card">
+                    <div class="flex items-center mb-4">
+                        <div class="directorate-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-primary">Training</h3>
+                    </div>
+                    <p class="text-gray-700 mb-4">Developing and implementing training programs for members and cadets nationwide.</p>
+                    <a href="training/index.html" class="text-primary font-medium hover:text-primary-dark transition duration-300 inline-flex items-center">
+                        Learn More <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Intelligence & Information -->
+                <div class="directorate-card">
+                    <div class="flex items-center mb-4">
+                        <div class="directorate-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-primary">Intelligence & Information</h3>
+                    </div>
+                    <p class="text-gray-700 mb-4">Gathering, analyzing, and disseminating intelligence for operational planning and security.</p>
+                    <a href="intelligence/index.html" class="text-primary font-medium hover:text-primary-dark transition duration-300 inline-flex items-center">
+                        Learn More <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Medical & Welfare -->
+                <div class="directorate-card">
+                    <div class="flex items-center mb-4">
+                        <div class="directorate-icon">
+                            <i class="fas fa-first-aid"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-primary">Medical & Welfare</h3>
+                    </div>
+                    <p class="text-gray-700 mb-4">Providing healthcare services, welfare support, and medical emergency response.</p>
+                    <a href="medical-welfare/index.html" class="text-primary font-medium hover:text-primary-dark transition duration-300 inline-flex items-center">
+                        Learn More <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- About Column -->
+                <div>
+                    <h3 class="footer-column-title">About Us</h3>
+                    <p class="text-gray-300 mb-4">Man O' War Nigeria is a paramilitary youth organization focused on developing young Nigerians through discipline, patriotism and community service.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-accent transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-accent transition"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-accent transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-accent transition"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links Column -->
+                <div>
+                    <h3 class="footer-column-title">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="index.html" class="text-gray-300 hover:text-white transition">Home</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-white transition">About Us</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-white transition">Our History</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-white transition">Leadership</a></li>
+                        <li><a href="../directorates/index.html" class="text-gray-300 hover:text-white transition">Directorates</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Programs Column -->
+                <div>
+                    <h3 class="footer-column-title">Programs</h3>
+                    <ul class="space-y-3">
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Youth Development</a></li>
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Community Service</a></li>
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Emergency Response</a></li>
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Adventure Training</a></li>
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Skills Acquisition</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Column -->
+                <div>
+                    <h3 class="footer-column-title">Contact Us</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3"></i>
+                            <span>National Headquarters, Abuja</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-3"></i>
+                            <span>+234 803 123 4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3"></i>
+                            <span>info@manowarng.org</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-8 text-center text-gray-300 text-sm">
+                <p>&copy; 2023 Man O' War Nigeria. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu (hidden by default) -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="absolute top-4 right-4 text-white text-3xl" id="closeMenu">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <div class="text-center">
+            <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center text-primary text-2xl font-bold mx-auto mb-8">MW</div>
+            
+            <nav class="flex flex-col space-y-6 text-white text-xl">
+                <a href="index.html" class="hover:text-accent transition">Home</a>
+                <a href="about.html" class="hover:text-accent transition">About Us</a>
+                <a href="courses.html" class="hover:text-accent transition">Courses</a>
+                <a href="../directorates/index.html" class="hover:text-accent transition">Directorates</a>
+                <a href="formation.html" class="hover:text-accent transition">Formation</a>
+                <a href="news.html" class="hover:text-accent transition">News</a>
+                <a href="gallery.html" class="hover:text-accent transition">Gallery</a>
+                <a href="contact.html" class="hover:text-accent transition">Contact Us</a>
+                <a href="portal.html" class="hover:text-accent transition">Portal</a>
+            </nav>
+        </div>
+    </div>
+
+    <script src="../scripts/main.js"></script>
+</body>
+</html>
+```
+
+## 2. Create Admin & Logistics Subpage
+
+Create a folder named `admin-logistics` inside the `directorates` folder, and create an `index.html` file:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin & Logistics - Man O' War Nigeria</title>
+    <link href="../../styles/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1E40AF',
+                        primaryDark: '#1E3A8A',
+                        secondary: '#FFFFFF',
+                        accent: '#F59E0B',
+                        light: '#F3F4F6',
+                        dark: '#1F2937',
+                        gray: '#6B7280',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-4 mb-2 md:mb-0">
+                    <span><i class="fas fa-phone mr-1"></i> +234 803 123 4567</span>
+                    <span><i class="fas fa-envelope mr-1"></i> info@manowarng.org</span>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-white hover:text-accent transition"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white hover:text-accent transition"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-white hover:text-accent transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white hover:text-accent transition"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-2xl font-bold mr-3">MW</div>
+                    <div class="logo-text">
+                        <h1 class="text-xl font-bold text-primary">MAN O' WAR NIGERIA</h1>
+                        <p class="text-xs text-gray-600">Service, Discipline, and Patriotism</p>
+                    </div>
+                </div>
+                
+                <div class="hidden lg:flex space-x-8">
+                    <a href="../index.html" class="nav-link font-medium">Home</a>
+                    <a href="../about.html" class="nav-link font-medium">About Us</a>
+                    <a href="../courses.html" class="nav-link font-medium">Courses</a>
+                    <a href="index.html" class="nav-link font-medium">Directorates</a>
+                    <a href="../formation.html" class="nav-link font-medium">Formation</a>
+                    <a href="../news.html" class="nav-link font-medium">News</a>
+                    <a href="../gallery.html" class="nav-link font-medium">Gallery</a>
+                    <a href="../contact.html" class="nav-link font-medium">Contact Us</a>
+                    <a href="../portal.html" class="nav-link font-medium">Portal</a>
+                </div>
+                
+                <button class="lg:hidden text-primary text-2xl" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container mx-auto px-4">
+            <ol>
+                <li><a href="../index.html" class="text-primary hover:text-primary-dark transition">Home</a></li>
+                <li><a href="index.html" class="text-primary hover:text-primary-dark transition">Directorates</a></li>
+                <li class="text-gray-600">Admin & Logistics</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Subpage Navigation -->
+    <div class="subpage-nav">
+        <div class="container mx-auto px-4">
+            <ul>
+                <li><a href="../admin-logistics/index.html" class="active">Admin & Logistics</a></li>
+                <li><a href="../operations-rescue/index.html">Operations & Rescue</a></li>
+                <li><a href="../account-finance/index.html">Account & Finance</a></li>
+                <li><a href="../legal-provost/index.html">Legal Service & Provost</a></li>
+                <li><a href="../public-relations/index.html">Public Relations</a></li>
+                <li><a href="../communications-media/index.html">Communications & Media</a></li>
+                <li><a href="../training/index.html">Training</a></li>
+                <li><a href="../intelligence/index.html">Intelligence & Information</a></li>
+                <li><a href="../medical-welfare/index.html">Medical & Welfare</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="directorates-hero text-white py-20 md:py-28">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="hero-title text-3xl md:text-4xl lg:text-5xl font-bold mb-6">Admin & Logistics Directorate</h2>
+            <p class="hero-text text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Ensuring efficient administration and logistical support for all operations</p>
+        </div>
+    </section>
+
+    <!-- Directorate Content -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div class="lg:col-span-2">
+                    <div class="directorate-detail">
+                        <div class="directorate-head">
+                            <div class="directorate-icon">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-2xl font-bold text-primary">Admin & Logistics Directorate</h2>
+                                <p class="text-gray-600">Director: Alhaji Musa Abdullahi</p>
+                            </div>
+                        </div>
+                        
+                        <h3 class="text-xl font-semibold text-primary mb-4">Overview</h3>
+                        <p class="text-gray-700 mb-6">The Admin & Logistics Directorate is responsible for the smooth administrative functioning and logistical support of all Man O' War operations across Nigeria. We ensure that resources are efficiently managed and distributed to support the organization's mission.</p>
+                        
+                        <h3 class="text-xl font-semibold text-primary mb-4">Key Functions</h3>
+                        <div class="mission-items mb-6">
+                            <div class="mission-item">
+                                <div class="mission-icon">
+                                    <i class="fas fa-cog"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-primary">Administrative Management</h4>
+                                    <p class="text-gray-700">Overseeing day-to-day administrative operations, record keeping, and documentation.</p>
+                                </div>
+                            </div>
+                            <div class="mission-item">
+                                <div class="mission-icon">
+                                    <i class="fas fa-truck"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-primary">Logistical Support</h4>
+                                    <p class="text-gray-700">Coordinating transportation, equipment distribution, and supply chain management.</p>
+                                </div>
+                            </div>
+                            <div class="mission-item">
+                                <div class="mission-icon">
+                                    <i class="fas fa-warehouse"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-primary">Resource Management</h4>
+                                    <p class="text-gray-700">Managing inventory, storage facilities, and resource allocation across all commands.</p>
+                                </div>
+                            </div>
+                            <div class="mission-item">
+                                <div class="mission-icon">
+                                    <i class="fas fa-users-cog"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-primary">Personnel Administration</h4>
+                                    <p class="text-gray-700">Handling personnel records, assignments, and administrative support for members.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h3 class="text-xl font-semibold text-primary mb-4">Recent Achievements</h3>
+                        <ul class="list-disc list-inside text-gray-700 mb-6 space-y-2">
+                            <li>Implemented a digital records management system across all state commands</li>
+                            <li>Streamlined logistics for national training exercises, reducing costs by 25%</li>
+                            <li>Established standardized administrative procedures for all units</li>
+                            <li>Developed a comprehensive inventory management system</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="bg-light rounded-lg p-6 mb-8">
+                        <h3 class="text-xl font-semibold text-primary mb-4">Contact Information</h3>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex items-center">
+                                <i class="fas fa-user mr-3 text-primary"></i>
+                                <span>Alhaji Musa Abdullahi</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-envelope mr-3 text-primary"></i>
+                                <span>admin@manowarng.org</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-phone mr-3 text-primary"></i>
+                                <span>+234 803 456 7890</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-map-marker-alt mr-3 text-primary"></i>
+                                <span>Block C, National Headquarters, Abuja</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-light rounded-lg p-6">
+                        <h3 class="text-xl font-semibold text-primary mb-4">Quick Links</h3>
+                        <ul class="space-y-3">
+                            <li><a href="#" class="text-primary hover:text-primary-dark transition">Administrative Guidelines</a></li>
+                            <li><a href="#" class="text-primary hover:text-primary-dark transition">Logistics Request Forms</a></li>
+                            <li><a href="#" class="text-primary hover:text-primary-dark transition">Resource Allocation Policy</a></li>
+                            <li><a href="#" class="text-primary hover:text-primary-dark transition">Staff Directory</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Staff Section -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-primary text-center mb-12">Key Staff</h2>
+            
+            <div class="staff-list">
+                <div class="staff-card">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Director" class="staff-image">
+                    <h3 class="text-lg font-semibold text-primary">Alhaji Musa Abdullahi</h3>
+                    <p class="text-gray-600">Director</p>
+                </div>
+                
+                <div class="staff-card">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Deputy Director" class="staff-image">
+                    <h3 class="text-lg font-semibold text-primary">Mrs. Adeola Johnson</h3>
+                    <p class="text-gray-600">Deputy Director (Admin)</p>
+                </div>
+                
+                <div class="staff-card">
+                    <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Deputy Director" class="staff-image">
+                    <h3 class="text-lg font-semibold text-primary">Mr. Chinedu Okoro</h3>
+                    <p class="text-gray-600">Deputy Director (Logistics)</p>
+                </div>
+                
+                <div class="staff-card">
+                    <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Admin Manager" class="staff-image">
+                    <h3 class="text-lg font-semibold text-primary">Ms. Fatima Bello</h3>
+                    <p class="text-gray-600">Administrative Manager</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- About Column -->
+                <div>
+                    <h3 class="footer-column-title">About Us</h3>
+                    <p class="text-gray-300 mb-4">Man O' War Nigeria is a paramilitary youth organization focused on developing young Nigerians through discipline, patriotism and community service.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-accent transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-accent transition"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-accent transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-accent transition"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links Column -->
+                <div>
+                    <h3 class="footer-column-title">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="../index.html" class="text-gray-300 hover:text-white transition">Home</a></li>
+                        <li><a href="../about.html" class="text-gray-300 hover:text-white transition">About Us</a></li>
+                        <li><a href="../about.html" class="text-gray-300 hover:text-white transition">Our History</a></li>
+                        <li><a href="../about.html" class="text-gray-300 hover:text-white transition">Leadership</a></li>
+                        <li><a href="index.html" class="text-gray-300 hover:text-white transition">Directorates</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Programs Column -->
+                <div>
+                    <h3 class="footer-column-title">Programs</h3>
+                    <ul class="space-y-3">
+                        <li><a href="../courses.html" class="text-gray-300 hover:text-white transition">Youth Development</a></li>
+                        <li><a href="../courses.html" class="text-gray-300 hover:text-white transition">Community Service</a></li>
+                        <li><a href="../courses.html" class="text-gray-300 hover:text-white transition">Emergency Response</a></li>
+                        <li><a href="../courses.html" class="text-gray-300 hover:text-white transition">Adventure Training</a></li>
+                        <li><a href="../courses.html" class="text-gray-300 hover:text-white transition">Skills Acquisition</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Column -->
+                <div>
+                    <h3 class="footer-column-title">Contact Us</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3"></i>
+                            <span>National Headquarters, Abuja</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-3"></i>
+                            <span>+234 803 123 4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3"></i>
+                            <span>info@manowarng.org</span>
+                        </li>
+                    </ul>
+                </div>
+            

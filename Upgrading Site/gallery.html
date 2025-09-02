@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Man O' War Nigeria</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        
+        :root {
+            --primary: #1E40AF;
+            --primary-dark: #1E3A8A;
+            --secondary: #FFFFFF;
+            --accent: #F59E0B;
+            --light: #F3F4F6;
+            --dark: #1F2937;
+            --gray: #6B7280;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .top-bar {
+            background: linear-gradient(90deg, #1E40AF 0%, #1E3A8A 100%);
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+        
+        .main-header {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-link {
+            color: #1F2937;
+            position: relative;
+            padding: 8px 12px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .nav-link:hover {
+            color: #1E40AF;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: #1E40AF;
+            transition: all 0.3s;
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover::after {
+            width: 80%;
+        }
+        
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 250px;
+            background: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 10px 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .dropdown:hover .dro/* Dropdown Styles */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 250px;
+            background: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 10px 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-item {
+            display: block;
+            padding: 10px 20px;
+            color: var(--dark);
+            transition: all 0.2s ease;
+        }
+        
+        .dropdown-item:hover {
+            background-color: var(--primary);
+            color: white;
+            padding-left: 25px;
+        }
+        
+        .dropdown-item i {
+            margin-right: 10px;
+            width: 18px;
+            text-align: center;
+        }
+        
+        /* Portal Button */
+        .portal-button {
+            background: linear-gradient(90deg, #1E40AF 0%, #1E3A8A 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+        }
+        
+        .portal-button:hover {
+            background: linear-gradient(90deg, #F59E0B 0%, #D97706 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(245, 158, 11, 0.3);
+        }
+        
+        /* Logo Styling */
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+        
+        .mobile-logo {
+            height: 70px;
+            width: auto;
+            margin-bottom: 20px;
+        }
+        
+        .gallery-hero {
+            background: linear-gradient(rgba(30, 64, 175, 0.85), rgba(30, 58, 138, 0.9)), url('https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .breadcrumb {
+            background-color: var(--light);
+            padding: 15px 0;
+        }
+        
+        .breadcrumb ol {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .breadcrumb li:not(:last-child)::after {
+            content: '/';
+            margin-left: 8px;
+            color: var(--gray);
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--primary-dark));
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        /* Mobile Dropdown Styles */
+        .mobile-dropdown {
+            display: none;
+            padding-left: 20px;
+        }
+        
+        .mobile-dropdown.active {
+            display: block;
+        }
+        
+        .mobile-dropdown-item {
+            display: block;
+            padding: 12px 0;
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .main-footer {
+            background: linear-gradient(to right, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+        
+        .footer-column-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-column-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+        
+        /* Additional Gallery Styles */
+        .gallery-filter-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-filter-btn.active, .gallery-filter-btn:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .gallery-item {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .gallery-img {
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 60%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 1rem;
+            color: white;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        /* Lightbox Styles */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+        
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 8px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+        
+        .lightbox-caption {
+            color: white;
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            padding: 0 2rem;
+        }
+        
+        .lightbox-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .lightbox-btn:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        /* Masonry grid for gallery */
+        .masonry-grid {
+            column-count: 3;
+            column-gap: 1rem;
+        }
+        
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 1024px) {
+            .masonry-grid {
+                column-count: 2;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .masonry-grid {
+                column-count: 1;
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .gallery-item {
+            animation: fadeIn 0.5s ease;
+        }
+        
+        /* Video card styles */
+        .video-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .video-thumbnail {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+        }
+        
+        .video-thumbnail img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .video-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .video-card:hover .video-play-btn {
+            background: var(--accent);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        
+        .video-content {
+            padding: 1.5rem;
+        }
+        
+        .video-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .video-description {
+            color: var(--gray);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1E40AF',
+                        primaryDark: '#1E3A8A',
+                        secondary: '#FFFFFF',
+                        accent: '#F59E0B',
+                        light: '#F3F4F6',
+                        dark: '#1F2937',
+                        gray: '#6B7280',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-4 mb-2 md:mb-0">
+                    <span><i class="fas fa-phone mr-1"></i> +234 703 908 0161</span>
+                    <span><i class="fas fa-envelope mr-1"></i> info@manowarng.org</span>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="https://www.facebook.com/share/16qxC72Uub/?mibextid=wwXIfr" class="text-white hover:text-accent transition"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.tiktok.com/@manowarnigeria1?_t=ZS-8zNK3yGn8c4&_r=1" class="text-white hover:text-accent transition"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/manowarng_hq?igsh=MXU4ejM4dXBqcWJ1MQ==" class="text-white hover:text-accent transition"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/@manowarng?si=4n4R3DnsHsRHz3kP" class="text-white hover:text-accent transition"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="logo-container">
+                    <img src="images/manowarlogo.png" alt="Man O' War Nigeria Logo" class="logo-img mr-3">
+                    <div class="logo-text">
+                
+                <div class="hidden lg:flex space-x-6 items-center">
+                    <a href="index.html" class="nav-link font-medium">Home</a>
+                    <a href="about.html" class="nav-link font-medium">About Us</a>
+                    <a href="courses.html" class="nav-link font-medium">Courses</a>
+                    
+                    <!-- Directorates Dropdown -->
+                    <div class="dropdown relative group">
+                        <a href="../directorates/index.html" class="nav-link font-medium flex items-center">
+                            Directorates <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </a>
+                        <div class="dropdown-menu absolute left-0 mt-2 w-64 bg-white rounded-md shadow-lg py-2 z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                            <a href="../directorates/admin-logistics.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Admin & Logistics</a>
+                            <a href="../directorates/operations-rescue.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Operations & Rescue</a>
+                            <a href="../directorates/account-finance.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Account & Finance</a>
+                            <a href="../directorates/legal-provost.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Legal Service & Provost</a>
+                            <a href="../directorates/pr-media.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">PR Communication & Media</a>
+                            <a href="../directorates/training.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Training</a>
+                            <a href="../directorates/intelligence.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Intelligence & Information</a>
+                            <a href="../directorates/medical-welfare.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Medical & Welfare</a>
+                        </div>
+                    </div>
+                    
+                    <a href="formation.html" class="nav-link font-medium active">Formation</a>
+                    <a href="news.html" class="nav-link font-medium">News</a>
+                    <a href="gallery.html" class="nav-link font-medium">Gallery</a>
+                    <a href="contact.html" class="nav-link font-medium">Contact Us</a>
+                    <a href="portal.html" class="portal-button"><i class="fas fa-user-circle mr-2"></i> Portal</a>
+                </div>
+                
+                <button class="lg:hidden text-primary text-2xl" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container mx-auto px-4">
+            <ol>
+                <li><a href="index.html" class="text-primary hover:text-primary-dark transition">Home</a></li>
+                <li class="text-gray-600">Gallery</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="gallery-hero text-white py-20 md:py-28">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">Photo Gallery</h2>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Capturing moments of service, discipline, and patriotism</p>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-center mb-12">Our Gallery</h2>
+            
+            <!-- Gallery Filter -->
+            <div class="flex justify-center mb-12 flex-wrap">
+                <div class="inline-flex rounded-md shadow-sm" role="group">
+                    <button type="button" class="gallery-filter-btn px-6 py-3 text-sm font-medium rounded-l-lg active" data-filter="all">
+                        All Photos
+                    </button>
+                    <button type="button" class="gallery-filter-btn px-6 py-3 text-sm font-medium border-l-0" data-filter="training">
+                        Training
+                    </button>
+                    <button type="button" class="gallery-filter-btn px-6 py-3 text-sm font-medium border-l-0" data-filter="community">
+                        Community Service
+                    </button>
+                    <button type="button" class="gallery-filter-btn px-6 py-3 text-sm font-medium border-l-0 rounded-r-md" data-filter="events">
+                        Events
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Masonry Gallery Grid -->
+            <div class="masonry-grid">
+                <!-- Gallery Item 1 -->
+                <div class="masonry-item gallery-item" data-category="training">
+                    <div class="rounded-lg overflow-hidden shadow-md relative">
+                        <img src="images/Nat-mov.jpg" 
+                            alt="Leadership Training" class="w-full h-auto gallery-img">
+                        <div class="gallery-overlay">
+                            <div>
+                                <h3 class="text-white font-semibold">Leadership Training</h3>
+                                <p class="text-gray-300">Annual leadership camp for cadets</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 2 -->
+                <div class="masonry-item gallery-item" data-category="community">
+                    <div class="rounded-lg overflow-hidden shadow-md relative">
+                        <img src="images/community-dev.jpg" 
+                            alt="Community Service" class="w-full h-auto gallery-img">
+                        <div class="gallery-overlay">
+                            <div>
+                                <h3 class="text-white font-semibold">Environmental Sanitation</h3>
+                                <p class="text-gray-300">Lagos State Command exercise</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 3 -->
+                <div class="masonry-item gallery-item" data-category="events">
+                    <div class="rounded-lg overflow-hidden shadow-md relative">
+                        <img src="images/Nat-camp.jpg" 
+                            alt="Award Ceremony" class="w-full h-auto gallery-img">
+                        <div class="gallery-overlay">
+                            <div>
+                                <h3 class="text-white font-semibold">Award Ceremony</h3>
+                                <p class="text-gray-300">National honors recognition event</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 4 -->
+                <div class="masonry-item gallery-item" data-category="training">
+                    <div class="rounded-lg overflow-hidden shadow-md relative">
+                        <img src="images/band-train.jpg" 
+                            alt="Youth Development" class="w-full h-auto gallery-img">
+                        <div class="gallery-overlay">
+                            <div>
+                                <h3 class="text-white font-semibold">Youth Development</h3>
+                                <p class="text-gray-300">Skills acquisition program</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 5 -->
+                <div class="masonry-item gallery-item" data-category="community">
+                    <div class="rounded-lg overflow-hidden shadow-md relative">
+                        <img src="images/emergency-res.jpg" 
+                            alt="Emergency Response" class="w-full h-auto gallery-img">
+                        <div class="gallery-overlay">
+                            <div>
+                                <h3 class="text-white font-semibold">Emergency Response</h3>
+                                <p class="text-gray-300">Disaster management training</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 6 -->
+                <div class="masonry-item gallery-item" data-category="events">
+                    <div class="rounded-lg overflow-hidden shadow-md relative">
+                        <img src="images/Altc.jpg" 
+                            alt="Training Program" class="w-full h-auto gallery-img">
+                        <div class="gallery-overlay">
+                            <div>
+                                <h3 class="text-white font-semibold">Annual Parade</h3>
+                                <p class="text-gray-300">National formation parade</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 7 -->
+                <div class="masonry-item gallery-item" data-category="training">
+                    <div class="rounded-lg overflow-hidden shadow-md relative">
+                        <img src="images/youth-dev.jpg" 
+                            alt="Command Training" class="w-full h-auto gallery-img">
+                        <div class="gallery-overlay">
+                            <div>
+                                <h3 class="text-white font-semibold">Command Training</h3>
+                                <p class="text-gray-300">Officer command course</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 8 -->
+                <div class="masonry-item gallery-item" data-category="community">
+                    <div class="rounded-lg overflow-hidden shadow-md relative">
+                        <img src="images/community.jpg" 
+                            alt="Medical Outreach" class="w-full h-auto gallery-img">
+                        <div class="gallery-overlay">
+                            <div>
+                                <h3 class="text-white font-semibold">Medical Outreach</h3>
+                                <p class="text-gray-300">Community health program</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 9 -->
+                <div class="masonry-item gallery-item" data-category="events">
+                    <div class="rounded-lg overflow-hidden shadow-md relative">
+                        <img src="images/media.jpg" 
+                            alt="Formation Ceremony" class="w-full h-auto gallery-img">
+                        <div class="gallery-overlay">
+                            <div>
+                                <h3 class="text-white font-semibold">Formation Ceremony</h3>
+                                <p class="text-gray-300">Unit formation ceremony</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-center mb-12">Video Gallery</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Video 1 -->
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <img src="https://vt.tiktok.com/ZSAgG765X/" 
+                            alt="Video thumbnail">
+                        <div class="video-play-btn">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Leadership Training Program</h3>
+                        <p class="video-description">Watch our cadets in action during the annual leadership training</p>
+                    </div>
+                </div>
+                
+                <!-- Video 2 -->
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <img src="https://vt.tiktok.com/ZSAgGKU8W/" 
+                            alt="Video thumbnail">
+                        <div class="video-play-btn">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Community Service Initiative</h3>
+                        <p class="video-description">Our members making a difference in local communities</p>
+                    </div>
+                </div>
+                
+                <!-- Video 3 -->
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <img src="https://vt.tiktok.com/ZSAgGnJaD/" 
+                            alt="Video thumbnail">
+                        <div class="video-play-btn">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Annual Awards Ceremony</h3>
+                        <p class="video-description">Celebrating excellence and achievement in our organization</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <span class="lightbox-close" id="lightboxClose">&times;</span>
+            <img src="" alt="" class="lightbox-img" id="lightboxImg">
+            <div class="lightbox-caption" id="lightboxCaption"></div>
+            <div class="lightbox-nav">
+                <button class="lightbox-btn" id="lightboxPrev"><i class="fas fa-chevron-left"></i></button>
+                <button class="lightbox-btn" id="lightboxNext"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- About Column -->
+                <div>
+                    <h3 class="footer-column-title">About Us</h3>
+                    <p class="text-gray-300 mb-4">Man O' War Nigeria is a paramilitary youth organization focused on developing young Nigerians through discipline, patriotism and community service.</p>
+                    <div class="flex space-x-4">
+                    <a href="https://www.facebook.com/share/16qxC72Uub/?mibextid=wwXIfr" class="text-white hover:text-accent transition"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.tiktok.com/@manowarnigeria1?_t=ZS-8zNK3yGn8c4&_r=1" class="text-white hover:text-accent transition"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/manowarng_hq?igsh=MXU4ejM4dXBqcWJ1MQ==" class="text-white hover:text-accent transition"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/@manowarng?si=4n4R3DnsHsRHz3kP" class="text-white hover:text-accent transition"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links Column -->
+                <div>
+                    <h3 class="footer-column-title">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="index.html" class="text-gray-300 hover:text-white transition">Home</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-white transition">About Us</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-white transition">Our History</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-white transition">Leadership</a></li>
+                        <li><a href="../directorates/index.html" class="text-gray-300 hover:text-white transition">Directorates</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Programs Column -->
+                <div>
+                    <h3 class="footer-column-title">Programs</h3>
+                    <ul class="space-y-3">
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Youth Development</a></li>
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Community Service</a></li>
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Emergency Response</a></li>
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Adventure Training</a></li>
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Skills Acquisition</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Column -->
+                <div>
+                    <h3 class="footer-column-title">Contact Us</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3"></i>
+                            <span>National Headquarters, Abuja</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-3"></i>
+                            <span>+234 703 908 0161</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3"></i>
+                            <span>info@manowarng.org</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-8 text-center text-gray-300 text-sm">
+                <p>&copy; 2025 Man O' War Nigeria. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu (hidden by default) -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="absolute top-4 right-4 text-white text-3xl" id="closeMenu">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <div class="text-center w-full px-8">
+            <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto mb-8">
+                <img src="../images/manowarlogo" alt="Logo" class="h-12">
+            </div>
+            
+            <nav class="flex flex-col space-y-6 text-white text-xl mb-8">
+                <a href="index.html" class="hover:text-accent transition">Home</a>
+                <a href="about.html" class="hover:text-accent transition">About Us</a>
+                <a href="courses.html" class="hover:text-accent transition">Courses</a>
+                
+                <!-- Directorates Mobile Dropdown Trigger -->
+                <a href="#" class="hover:text-accent transition flex items-center justify-center" id="mobileDirectoratesToggle">
+                    Directorates <i class="fas fa-chevron-down ml-2 text-sm"></i>
+                </a>
+                
+                <!-- Directorates Mobile Dropdown -->
+                <div class="mobile-dropdown" id="mobileDirectoratesDropdown">
+                    <a href="../directorates/admin-logistics.html" class="mobile-dropdown-item">></i> Admin and Logistics</a>
+                    <a href="../directorates/operation-rescue.html" class="mobile-dropdown-item"></i> Operation and Rescue</a>
+                    <a href="../directorates/account-finance.html" class="mobile-dropdown-item"></i> Account and Finance</a>
+                    <a href="../directorates/legal-provost.html" class="mobile-dropdown-item"></i> Legal Service and Provost</a>
+                    <a href="../directorates/pr-communication.html" class="mobile-dropdown-item"></i> PR Communication and Media</a>
+                    <a href="../directorates/training.html" class="mobile-dropdown-item"></i> Training</a>
+                    <a href="../directorates/intelligence.html" class="mobile-dropdown-item"></i> Intelligence and Information</a>
+                    <a href="../directorates/medical-welfare.html" class="mobile-dropdown-item"></i> Medical and Welfare</a>
+                </div>
+                
+                <a href="formation.html" class="hover:text-accent transition">Formation</a>
+                <a href="news.html" class="hover:text-accent transition">News</a>
+                <a href="gallery.html" class="hover:text-accent transition">Gallery</a>
+                <a href="contact.html" class="hover:text-accent transition">Contact Us</a>
+                <a href="portal.html" class="inline-block bg-primary hover:bg-accent text-white font-bold py-3 px-6 rounded-lg mt-4 transition duration-300">
+                    <i class="fas fa-user-circle mr-2"></i> Portal
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu functionality
+        const menuToggle = document.getElementById('menuToggle');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Mobile directorates dropdown functionality
+        const mobileDirectoratesToggle = document.getElementById('mobileDirectoratesToggle');
+        const mobileDirectoratesDropdown = document.getElementById('mobileDirectoratesDropdown');
+        
+        if (mobileDirectoratesToggle && mobileDirectoratesDropdown) {
+            mobileDirectoratesToggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                mobileDirectoratesDropdown.classList.toggle('active');
+            });
+        }
+        
+        // Gallery Filter Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.gallery-filter-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Filter gallery items
+                    galleryItems.forEach(item => {
+                        if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Lightbox functionality
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            const lightboxCaption = document.getElementById('lightboxCaption');
+            const lightboxClose = document.getElementById('lightboxClose');
+            const lightboxPrev = document.getElementById('lightboxPrev');
+            const lightboxNext = document.getElementById('lightboxNext');
+            
+            const images = Array.from(document.querySelectorAll('.gallery-img'));
+            let currentIndex = 0;
+            
+            // Open lightbox
+            images.forEach((image, index) => {
+                image.addEventListener('click', function() {
+                    currentIndex = index;
+                    updateLightbox();
+                    lightbox.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            // Close lightbox
+            lightboxClose.addEventListener('click', function() {
+                lightbox.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Navigate lightbox
+            lightboxPrev.addEventListener('click', function() {
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                updateLightbox();
+            });
+            
+            lightboxNext.addEventListener('click', function() {
+                currentIndex = (currentIndex + 1) % images.length;
+                updateLightbox();
+            });
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (lightbox.style.display === 'flex') {
+                    if (e.key === 'Escape') {
+                        lightbox.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    } else if (e.key === 'ArrowLeft') {
+                        currentIndex = (currentIndex - 1 + images.length) % images.length;
+                        updateLightbox();
+                    } else if (e.key === 'ArrowRight') {
+                        currentIndex = (currentIndex + 1) % images.length;
+                        updateLightbox();
+                    }
+                }
+            });
+            
+            function updateLightbox() {
+                const currentImage = images[currentIndex];
+                lightboxImg.src = currentImage.src;
+                lightboxCaption.textContent = currentImage.alt;
+            }
+            
+            // Close lightbox when clicking outside
+            lightbox.addEventListener('click', function(e) {
+                if (e.target === lightbox) {
+                    lightbox.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Man O' War Nigeria</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1E40AF',
+                        primaryDark: '#1E3A8A',
+                        secondary: '#FFFFFF',
+                        accent: '#F59E0B',
+                        light: '#F3F4F6',
+                        dark: '#1F2937',
+                        gray: '#6B7280',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom CSS with advanced styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .top-bar {
+            background: linear-gradient(90deg, #1E40AF 0%, #1E3A8A 100%);
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+        
+        .main-header {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-link {
+            color: #1F2937;
+            position: relative;
+            padding: 8px 12px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .nav-link:hover {
+            color: #1E40AF;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: #1E40AF;
+            transition: all 0.3s;
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover::after {
+            width: 80%;
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            background: #F3F4F6;
+            padding: 15px 0;
+        }
+        
+        .breadcrumb ol {
+            display: flex;
+            align-items: center;
+        }
+        
+        .breadcrumb li:not(:last-child):after {
+            content: '/';
+            margin: 0 10px;
+            color: #6B7280;
+        }
+        
+        /* Hero Section */
+        .about-hero {
+            background: linear-gradient(rgba(30, 64, 175, 0.8), rgba(30, 58, 138, 0.9)), url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        /* Stats Section */
+        .stat-card {
+            background: rgb(255, 255, 255);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Footer */
+        .main-footer {
+            background: linear-gradient(90deg, #1E40AF 0%, #1E3A8A 100%);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-column-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: #F59E0B;
+            border-radius: 2px;
+        }
+        
+        /* Section Titles */
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1E40AF;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: #F59E0B;
+            border-radius: 2px;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--primary-dark));
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        /* Mobile Dropdown Styles */
+        .mobile-dropdown {
+            display: none;
+            padding-left: 20px;
+        }
+        
+        .mobile-dropdown.active {
+            display: block;
+        }
+        
+        .mobile-dropdown-item {
+            display: block;
+            padding: 12px 0;
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Commander Card */
+        .commander-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+        }
+        
+        .commander-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .commander-image {
+            height: 300px;
+            overflow: hidden;
+        }
+        
+        .commander-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .commander-card:hover .commander-image img {
+            transform: scale(1.05);
+        }
+        
+        .commander-info {
+            padding: 25px;
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: #1E40AF;
+        }
+        
+        .timeline-item {
+            width: 50%;
+            padding: 20px 40px;
+            position: relative;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            background: #F59E0B;
+            border-radius: 50%;
+        }
+        
+        .timeline-item:nth-child(odd)::after {
+            right: -10px;
+        }
+        
+        .timeline-item:nth-child(even)::after {
+            left: -10px;
+        }
+        
+        /* Portal Button */
+        .portal-button {
+            background: linear-gradient(90deg, #1E40AF 0%, #1E3A8A 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+        }
+        
+        .portal-button:hover {
+            background: linear-gradient(90deg, #F59E0B 0%, #D97706 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(245, 158, 11, 0.3);
+        }
+        
+        /* Logo Styling */
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+        
+        .mobile-logo {
+            height: 70px;
+            width: auto;
+            margin-bottom: 20px;
+        }
+        
+        /* Commander Section Styles */
+        .commanders-section {
+            background: linear-gradient(to bottom, #F3F4F6, #E5E7EB);
+            padding: 80px 0;
+        }
+        
+        .horizontal-commanders {
+            display: flex;
+            overflow-x: auto;
+            padding: 30px 10px;
+            scroll-behavior: smooth;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .horizontal-commanders::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .commander-card-horizontal {
+            flex: 0 0 auto;
+            width: 280px;
+            margin: 0 15px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .commander-card-horizontal:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .commander-card-horizontal.active {
+            border: 3px solid #F59E0B;
+            transform: translateY(-10px);
+        }
+        
+        .commander-image-horizontal {
+            height: 320px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .commander-image-horizontal img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .commander-card-horizontal:hover .commander-image-horizontal img {
+            transform: scale(1.05);
+        }
+        
+        .commander-info-horizontal {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .commander-name-horizontal {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1E40AF;
+            margin-bottom: 5px;
+        }
+        
+        .commander-tenure-horizontal {
+            color: #F59E0B;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .commander-detail-panel {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+        
+        .commander-detail-panel.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .detail-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .detail-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid #1E40AF;
+            margin-right: 30px;
+        }
+        
+        .detail-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .detail-title {
+            flex: 1;
+        }
+        
+        .detail-name {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1E40AF;
+            margin-bottom: 5px;
+        }
+        
+        .detail-tenure {
+            color: #F59E0B;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .achievement-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .achievement-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 12px;
+            color: #4B5563;
+        }
+        
+        .achievement-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #10B981;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .nav-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #CBD5E1;
+            margin: 0 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .nav-dot.active {
+            background: #F59E0B;
+            transform: scale(1.3);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+                left: 0 !important;
+            }
+            
+            .timeline-item::after {
+                left: 20px !important;
+            }
+            
+            .commander-timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 80px;
+                padding-right: 20px;
+                left: 0 !important;
+            }
+            
+            .timeline-item::after {
+                left: 18px !important;
+            }
+            
+            .timeline-content::before {
+                left: 0 !important;
+                right: auto !important;
+            }
+            
+            .logo-img {
+                height: 50px;
+            }
+            
+            .detail-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .detail-image {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            .commander-card-horizontal {
+                width: 250px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .detail-name {
+                font-size: 1.7rem;
+            }
+            
+            .commander-card-horizontal {
+                width: 220px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-4 mb-2 md:mb-0">
+                    <span><i class="fas fa-phone mr-1"></i> +234 703 908 0161</span>
+                    <span><i class="fas fa-envelope mr-1"></i> info@manowarng.org</span>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="https://www.facebook.com/share/16qxC72Uub/?mibextid=wwXIfr" class="text-white hover:text-accent transition"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.tiktok.com/@manowarnigeria1?_t=ZS-8zNK3yGn8c4&_r=1" class="text-white hover:text-accent transition"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/manowarng_hq?igsh=MXU4ejM4dXBqcWJ1MQ==" class="text-white hover:text-accent transition"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/@manowarng?si=4n4R3DnsHsRHz3kP" class="text-white hover:text-accent transition"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="logo-container">
+                    <img src="images/manowarlogo.png" alt="Man O' War Nigeria Logo" class="logo-img mr-3">
+                    <div class="logo-text">
+                </div>
+                
+                <div class="hidden lg:flex items-center space-x-6">
+                    <a href="index.html" class="nav-link font-medium">Home</a>
+                    <a href="about.html" class="nav-link font-medium">About Us</a>
+                    <a href="courses.html" class="nav-link font-medium">Courses</a>
+                    
+                    <!-- Directorates Dropdown -->
+                    <div class="dropdown relative group">
+                        <a href="../directorates/index.html" class="nav-link font-medium flex items-center">
+                            Directorates <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </a>
+                        <div class="dropdown-menu absolute left-0 mt-2 w-64 bg-white rounded-md shadow-lg py-2 z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                            <a href="../directorates/admin-logistics.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Admin & Logistics</a>
+                            <a href="../directorates/operations-rescue.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Operations & Rescue</a>
+                            <a href="../directorates/account-finance.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Account & Finance</a>
+                            <a href="../directorates/legal-provost.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Legal Service & Provost</a>
+                            <a href="../directorates/pr-media.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">PR Communication & Media</a>
+                            <a href="../directorates/training.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Training</a>
+                            <a href="../directorates/intelligence.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Intelligence & Information</a>
+                            <a href="../directorates/medical-welfare.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Medical & Welfare</a>
+                        </div>
+                    </div>
+                    
+                    <a href="formation.html" class="nav-link font-medium">Formation</a>
+                    <a href="news.html" class="nav-link font-medium">News</a>
+                    <a href="gallery.html" class="nav-link font-medium">Gallery</a>
+                    <a href="contact.html" class="nav-link font-medium">Contact Us</a>
+                    <a href="portal.html" class="portal-button"><i class="fas fa-user-circle mr-2"></i>Portal</a>
+                </div>
+                
+                <button class="lg:hidden text-primary text-2xl" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container mx-auto px-4">
+            <ol>
+                <li><a href="index.html" class="text-primary hover:text-primary-dark transition">Home</a></li>
+                <li class="text-gray-600">About Us</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="about-hero text-white py-20 md:py-28">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="hero-title text-3xl md:text-4xl lg:text-5xl font-bold mb-6">About Man O' War Nigeria</h2>
+            <p class="hero-text text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Learn about our history, mission, and leadership</p>
+        </div>
+    </section>
+
+    <!-- About Content -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div class="lg:col-span-2">
+                    <h2 class="section-title text-primary mb-8">Our History</h2>
+                    <div class="prose max-w-none">
+                        <p class="text-gray-700 mb-6">Man O' War Nigeria was established in 1983 as a paramilitary youth organization under the leadership of the Nigerian government. The organization was created to promote discipline, patriotism, and community service among Nigerian youth.</p>
+                        
+                        <p class="text-gray-700 mb-6">Since its inception, Man O' War has grown to become one of the largest youth organizations in Nigeria, with presence in all 36 states and the Federal Capital Territory. The organization has trained millions of young Nigerians in leadership, survival skills, and community development.</p>
+                        
+                        <p class="text-gray-700 mb-6">Over the years, Man O' War has played significant roles in national events, including peacekeeping during elections, environmental sanitation exercises, and disaster response operations. Our members have consistently demonstrated the values of service, discipline, and patriotism.</p>
+                        
+                        <h3 class="text-xl font-semibold text-primary mb-4">Our Mission</h3>
+                        <p class="text-gray-700 mb-6">To develop disciplined, patriotic, and responsible citizens through character molding, leadership training, and community service.</p>
+                        
+                        <h3 class="text-xl font-semibold text-primary mb-4">Our Vision</h3>
+                        <p class="text-gray-700 mb-6">To be the leading youth organization in Nigeria that produces well-rounded citizens who contribute positively to national development.</p>
+                    </div>
+                    
+                    <!-- Core Values -->
+                    <div class="mt-12">
+                        <h3 class="text-2xl font-semibold text-primary mb-6">Our Core Values</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="bg-light p-6 rounded-lg text-center">
+                                <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-2xl mx-auto mb-4">
+                                    <i class="fas fa-hands-helping"></i>
+                                </div>
+                                <h4 class="text-lg font-semibold text-primary mb-2">Service</h4>
+                                <p class="text-gray-700">Dedication to serving our communities and nation with selflessness and commitment.</p>
+                            </div>
+                            <div class="bg-light p-6 rounded-lg text-center">
+                                <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-2xl mx-auto mb-4">
+                                    <i class="fas fa-medal"></i>
+                                </div>
+                                <h4 class="text-lg font-semibold text-primary mb-2">Discipline</h4>
+                                <p class="text-gray-700">Upholding the highest standards of conduct, orderliness and self-control.</p>
+                            </div>
+                            <div class="bg-light p-6 rounded-lg text-center">
+                                <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-2xl mx-auto mb-4">
+                                    <i class="fas fa-flag"></i>
+                                </div>
+                                <h4 class="text-lg font-semibold text-primary mb-2">Patriotism</h4>
+                                <p class="text-gray-700">Fostering love for our country and commitment to its development and prosperity.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h2 class="section-title text-primary mb-8">Our Leadership</h2>
+                    <div class="commander-card mb-8">
+                        <div class="commander-image">
+                            <img src="images/National commander.jpeg" alt="National commander">
+                        </div>
+                        <div class="commander-info">
+                            <h3 class="text-xl font-semibold text-primary text-center mb-2">NC Adedamola Gbenga</h3>
+                            <p class="text-accent text-center mb-4">National Commander</p>
+                            <p class="text-gray-700 text-center">NC Adedamola Gbenga was appointed as National Commander in 2025, bringing extensive experience in youth development and leadership training.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-light rounded-lg p-6">
+                        <h3 class="text-xl font-semibold text-primary mb-4">National Executive Council</h3>
+                        <ul class="space-y-3">
+                            <li class="flex justify-between items-center py-2 border-b border-gray-200">
+                                <span class="text-gray-700">Deputy National Commander</span>
+                                <span class="text-primary font-medium">DNC Kobbir</span>
+                            </li>
+                            <li class="flex justify-between items-center py-2 border-b border-gray-200">
+                                <span class="text-gray-700">National Secretary</span>
+                                <span class="text-primary font-medium">Chukwuma Okoro</span>
+                            </li>
+                            <li class="flex justify-between items-center py-2 border-b border-gray-200">
+                                <span class="text-gray-700">Financial Secretary</span>
+                                <span class="text-primary font-medium">Fatima Abdul</span>
+                            </li>
+                            <li class="flex justify-between items-center py-2">
+                                <span class="text-gray-700">Public Relations Officer</span>
+                                <span class="text-primary font-medium">ANC Ibrahim</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Timeline -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-primary text-center mb-16">Our Journey</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 class="text-xl font-semibold text-primary mb-2">1983</h3>
+                        <p class="text-gray-700">Man O' War Nigeria was officially established by the Federal Government as a uniformed voluntary youth organization.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 class="text-xl font-semibold text-primary mb-2">1985</h3>
+                        <p class="text-gray-700">First National Training Camp held in Lagos with participants from across the country.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 class="text-xl font-semibold text-primary mb-2">1991</h3>
+                        <p class="text-gray-700">Expansion to all states of the federation with the establishment of state commands.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 class="text-xl font-semibold text-primary mb-2">1999</h3>
+                        <p class="text-gray-700">Participation in national environmental sanitation exercises and peacekeeping during elections.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 class="text-xl font-semibold text-primary mb-2">2008</h3>
+                        <p class="text-gray-700">Silver Jubilee celebration marking 25 years of service to the nation.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 class="text-xl font-semibold text-primary mb-2">2020</h3>
+                        <p class="text-gray-700">COVID-19 response initiative providing support to communities across Nigeria.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 class="text-xl font-semibold text-primary mb-2">2025</h3>
+                        <p class="text-gray-700">3rd National Camping Exercise held in Forest school, Aluu, Port-hacourt.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Past Commanders Section -->
+    <section class="commanders-section">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="section-title">Past National Commanders</h2>
+                <p class="text-gray-700 max-w-3xl mx-auto mt-4 text-lg">Honoring the visionary leaders who shaped Man O' War Nigeria</p>
+            </div>
+            
+            <!-- Horizontal Commanders List -->
+            <div class="horizontal-commanders">
+                <!-- Commander 1 -->
+                <div class="commander-card-horizontal active" data-commander="1">
+                    <div class="commander-image-horizontal">
+                        <img src="images/National commander.jpeg" alt="NC Adedamola Gbenga">
+                    </div>
+                    <div class="commander-info-horizontal">
+                        <h3 class="commander-name-horizontal">NC Adedamola Gbenga Emmanuel</h3>
+                        <p class="commander-tenure-horizontal">2023 till date</p>
+                    </div>
+                </div>
+                
+                <!-- Commander 2 -->
+                <div class="commander-card-horizontal" data-commander="2">
+                    <div class="commander-image-horizontal">
+                        <img src="images/National commander.jpeg" alt="NC Adedamola Gbenga">
+                    </div>
+                    <div class="commander-info-horizontal">
+                        <h3 class="commander-name-horizontal">Alhaji Sani Mohammed</h3>
+                        <p class="commander-tenure-horizontal">2018 - 2023</p>
+                    </div>
+                </div>
+                
+                <!-- Commander 3 -->
+                <div class="commander-card-horizontal" data-commander="3">
+                    <div class="commander-image-horizontal">
+                        <img src="images/National commander.jpeg" alt="NC Adedamola Gbenga">
+                    </div>
+                    <div class="commander-info-horizontal">
+                        <h3 class="commander-name-horizontal">Brig. Gen. O. O. Oshin</h3>
+                        <p class="commander-tenure-horizontal">2014 - 2018</p>
+                    </div>
+                </div>
+                
+                <!-- Commander 4 -->
+                <div class="commander-card-horizontal" data-commander="4">
+                    <div class="commander-image-horizontal">
+                        <img src="images/National commander.jpeg" alt="NC Adedamola Gbenga">
+                    </div>
+                    <div class="commander-info-horizontal">
+                        <h3 class="commander-name-horizontal">Col. James Adekunle</h3>
+                        <p class="commander-tenure-horizontal">2010 - 2014</p>
+                    </div>
+                </div>
+                
+                <!-- Commander 5 -->
+                <div class="commander-card-horizontal" data-commander="5">
+                    <div class="commander-image-horizontal">
+                        <img src="images/National commander.jpeg" alt="NC Adedamola Gbenga">
+                    </div>
+                    <div class="commander-info-horizontal">
+                        <h3 class="commander-name-horizontal">Chief Benjamin Okoro</h3>
+                        <p class="commander-tenure-horizontal">2006 - 20010</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Navigation Dots -->
+            <div class="nav-dots">
+                <div class="nav-dot active" data-commander="1"></div>
+                <div class="nav-dot" data-commander="2"></div>
+                <div class="nav-dot" data-commander="3"></div>
+                <div class="nav-dot" data-commander="4"></div>
+                <div class="nav-dot" data-commander="5"></div>
+            </div>
+            
+            <!-- Commander Detail Panel -->
+            <div class="commander-detail-panel active" id="detail-1">
+                <div class="detail-header">
+                    <div class="detail-image">
+                        <img src="images/National commander.jpeg" alt="Brig. Gen. O. O. Oshin">
+                    </div>
+                    <div class="detail-title">
+                        <h3 class="detail-name">NC Adedamola Gbenga Emmanuel</h3>
+                        <p class="detail-tenure">National Commander (2023 till date)</p>
+                        <p class="text-gray-700">Pioneered the digital transformation of the organization and expanded international partnerships.</p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-xl font-semibold text-primary mb-4">Key Achievements</h4>
+                        <ul class="achievement-list">
+                            <li>Digitalized the membership registration process, increasing efficiency by 60%</li>
+                            <li>Established partnerships with 5 international youth organizations</li>
+                            <li>Increased membership by 40% during his tenure</li>
+                            <li>Secured government funding for youth development programs</li>
+                            <li>Introduced modern training equipment and techniques</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-xl font-semibold text-primary mb-4">Background</h4>
+                        <p class="text-gray-700 mb-6">NC Adedamola Gbenga Emmanuel is the current National Commander of Man O' War Nigeria. With an extensive experience in youth development, he brought strategic vision and discipline to the organization.</p>
+                        
+                        <h4 class="text-xl font-semibold text-primary mb-4">Education</h4>
+                        <p class="text-gray-700 mb-2">- History degree from the university of Ife</p>
+                        <p class="text-gray-700 mb-2">- Master's in peace & security studies from ekiti state university</p>
+                        <p class="text-gray-700">- Masters in history from the university of Abuja</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Detail Panel 2 -->
+            <div class="commander-detail-panel" id="detail-2">
+                <div class="detail-header">
+                    <div class="detail-image">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Chief Benjamin Okoro">
+                    </div>
+                    <div class="detail-title">
+                        <h3 class="detail-name">Chief Benjamin Okoro</h3>
+                        <p class="detail-tenure">National Commander (2014 - 2018)</p>
+                        <p class="text-gray-700">Focused on grassroots mobilization and established the community development corps.</p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-xl font-semibold text-primary mb-4">Key Achievements</h4>
+                        <ul class="achievement-list">
+                            <li>Launched Community Development Corps program</li>
+                            <li>Expanded operations to all 774 local government areas</li>
+                            <li>Secured government recognition and support</li>
+                            <li>Established 12 new state commands</li>
+                            <li>Increased volunteer participation by 35%</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-xl font-semibold text-primary mb-4">Background</h4>
+                        <p class="text-gray-700 mb-6">Chief Benjamin Okoro served as National Commander from 2014 to 2018. With a background in community development, he focused on expanding Man O' War's reach to grassroots communities across Nigeria.</p>
+                        
+                        <h4 class="text-xl font-semibold text-primary mb-4">Education</h4>
+                        <p class="text-gray-700 mb-2">- Bachelor of Arts in Sociology, University of Nigeria, Nsukka</p>
+                        <p class="text-gray-700 mb-2">- Master's in Public Administration, Ahmadu Bello University</p>
+                        <p class="text-gray-700">- Certificate in Leadership & Management, University of Lagos</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Additional detail panels for other commanders would go here -->
+            
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 bg-primary text-blue">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-white text-center mb-16">Our Impact</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="stat-card">
+                    <div class="text-4xl font-bold mb-2">36</div>
+                    <div class="text-lg">State Commands</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="text-4xl font-bold mb-2">500K+</div>
+                    <div class="text-lg">Active Members</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="text-4xl font-bold mb-2">1M+</div>
+                    <div class="text-lg">Youths Trained</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="text-4xl font-bold mb-2">40</div>
+                    <div class="text-lg">Years of Service</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- About Column -->
+                <div>
+                    <h3 class="footer-column-title">About Us</h3>
+                    <p class="text-gray-300 mb-4">Man O' War Nigeria is a paramilitary youth organization focused on developing young Nigerians through discipline, patriotism and community service.</p>
+                    <div class="flex space-x-4">
+                    <a href="https://www.facebook.com/share/16qxC72Uub/?mibextid=wwXIfr" class="text-white hover:text-accent transition"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.tiktok.com/@manowarnigeria1?_t=ZS-8zNK3yGn8c4&_r=1" class="text-white hover:text-accent transition"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/manowarng_hq?igsh=MXU4ejM4dXBqcWJ1MQ==" class="text-white hover:text-accent transition"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/@manowarng?si=4n4R3DnsHsRHz3kP" class="text-white hover:text-accent transition"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links Column -->
+                <div>
+                    <h3 class="footer-column-title">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="index.html" class="text-gray-300 hover:text-white transition">Home</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-white transition">About Us</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-white transition">Our History</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-white transition">Leadership</a></li>
+                        <li><a href="../directorates/index.html" class="text-gray-300 hover:text-white transition">Directorates</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Programs Column -->
+                <div>
+                    <h3 class="footer-column-title">Programs</h3>
+                    <ul class="space-y-3">
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Youth Development</a></li>
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Community Service</a></li>
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Emergency Response</a></li>
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Adventure Training</a></li>
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Skills Acquisition</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Column -->
+                <div>
+                    <h3 class="footer-column-title">Contact Us</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3"></i>
+                            <span>National Headquarters, Abuja</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-3"></i>
+                            <span>+234 803 123 4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3"></i>
+                            <span>info@manowarng.org</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-8 text-center text-gray-300 text-sm">
+                <p>&copy; 2023 Man O' War Nigeria. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu (hidden by default) -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="absolute top-4 right-4 text-white text-3xl" id="closeMenu">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <div class="text-center w-full px-8">
+            <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto mb-8">
+                <img src="../images/manowarlogo" alt="Logo" class="h-12">
+            </div>
+            
+            <nav class="flex flex-col space-y-6 text-white text-xl mb-8">
+                <a href="index.html" class="hover:text-accent transition">Home</a>
+                <a href="about.html" class="hover:text-accent transition">About Us</a>
+                
+                <!-- Directorates Mobile Dropdown Trigger -->
+                <a href="#" class="hover:text-accent transition flex items-center justify-center" id="mobileDirectoratesToggle">
+                    Directorates <i class="fas fa-chevron-down ml-2 text-sm"></i>
+                </a>
+                
+                <!-- Directorates Mobile Dropdown -->
+                <div class="mobile-dropdown" id="mobileDirectoratesDropdown">
+                    <a href="../directorates/admin-logistics.html" class="mobile-dropdown-item"></i> Admin and Logistics</a>
+                    <a href="../directorates/operation-rescue.html" class="mobile-dropdown-item"></i> Operation and Rescue</a>
+                    <a href="../directorates/account-finance.html" class="mobile-dropdown-item"></i> Account and Finance</a>
+                    <a href="../directorates/legal-provost.html" class="mobile-dropdown-item"></i> Legal Service and Provost</a>
+                    <a href="../directorates/pr-communication.html" class="mobile-dropdown-item"></i> PR Communication and Media</a>
+                    <a href="../directorates/training.html" class="mobile-dropdown-item"></i> Training</a>
+                    <a href="../directorates/intelligence.html" class="mobile-dropdown-item"></i> Intelligence and Information</a>
+                    <a href="../directorates/medical-welfare.html" class="mobile-dropdown-item"></i> Medical and Welfare</a>
+                </div>
+                
+                <a href="formation.html" class="hover:text-accent transition">Formation</a>
+                <a href="news.html" class="hover:text-accent transition">News</a>
+                <a href="gallery.html" class="hover:text-accent transition">Gallery</a>
+                <a href="contact.html" class="hover:text-accent transition">Contact Us</a>
+                
+                <!-- Portal Mobile Button - Blue with yellow hover -->
+                <a href="portal.html" class="inline-block bg-primary hover:bg-accent text-white font-bold py-3 px-6 rounded-lg mt-4 transition duration-300">
+                    <i class="fas fa-user-circle mr-2"></i> Portal
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu functionality
+        const menuToggle = document.getElementById('menuToggle');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Mobile directorates dropdown functionality
+        const mobileDirectoratesToggle = document.getElementById('mobileDirectoratesToggle');
+        const mobileDirectoratesDropdown = document.getElementById('mobileDirectoratesDropdown');
+        
+        if (mobileDirectoratesToggle && mobileDirectoratesDropdown) {
+            mobileDirectoratesToggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                mobileDirectoratesDropdown.classList.toggle('active');
+            });
+        }
+        
+        // Commander cards functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Commander cards
+            const commanderCards = document.querySelectorAll('.commander-card-horizontal');
+            const navDots = document.querySelectorAll('.nav-dot');
+            const detailPanels = document.querySelectorAll('.commander-detail-panel');
+            
+            // Function to show commander details
+            function showCommanderDetails(commanderId) {
+                // Remove active class from all cards, dots, and panels
+                commanderCards.forEach(card => card.classList.remove('active'));
+                navDots.forEach(dot => dot.classList.remove('active'));
+                detailPanels.forEach(panel => panel.classList.remove('active'));
+                
+                // Add active class to selected card and dot
+                document.querySelector(`.commander-card-horizontal[data-commander="${commanderId}"]`).classList.add('active');
+                document.querySelector(`.nav-dot[data-commander="${commanderId}"]`).classList.add('active');
+                
+                // Show corresponding detail panel
+                document.getElementById(`detail-${commanderId}`).classList.add('active');
+            }
+            
+            // Add click event to commander cards
+            commanderCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const commanderId = this.getAttribute('data-commander');
+                    showCommanderDetails(commanderId);
+                });
+            });
+            
+            // Add click event to nav dots
+            navDots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const commanderId = this.getAttribute('data-commander');
+                    showCommanderDetails(commanderId);
+                    
+                    // Scroll to the corresponding card
+                    const card = document.querySelector(`.commander-card-horizontal[data-commander="${commanderId}"]`);
+                    card.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+                });
+            });
+            
+            // Initialize first commander as active
+            showCommanderDetails(1);
+        });
+    </script>
+</body>
+</html>

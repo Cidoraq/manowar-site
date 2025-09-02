@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Portal - Man O' War Nigeria</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1E40AF',
+                        primaryDark: '#1E3A8A',
+                        secondary: '#FFFFFF',
+                        accent: '#F59E0B',
+                        light: '#F3F4F6',
+                        dark: '#1F2937',
+                        gray: '#6B7280',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .top-bar {
+            background: linear-gradient(90deg, #1E40AF 0%, #1E3A8A 100%);
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+        
+        .main-header {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-link {
+            color: #1F2937;
+            position: relative;
+            padding: 8px 12px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .nav-link:hover {
+            color: #1E40AF;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: #1E40AF;
+            transition: all 0.3s;
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover::after {
+            width: 80%;
+        }
+
+         /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 250px;
+            background: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 10px 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-item {
+            display: block;
+            padding: 10px 20px;
+            color: var(--dark);
+            transition: all 0.2s ease;
+        }
+        
+        .dropdown-item:hover {
+            background-color: var(--primary);
+            color: white;
+            padding-left: 25px;
+        }
+        
+        .dropdown-item i {
+            margin-right: 10px;
+            width: 18px;
+            text-align: center;
+        }
+
+        /* Portal Button */
+        .portal-button {
+            background: linear-gradient(90deg, #1E40AF 0%, #1E3A8A 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+        }
+        
+        .portal-button:hover {
+            background: linear-gradient(90deg, #F59E0B 0%, #D97706 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(245, 158, 11, 0.3);
+        }
+        
+        /* Logo Styling */
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+        
+        .mobile-logo {
+            height: 70px;
+            width: auto;
+            margin-bottom: 20px;
+        }
+        
+        .breadcrumb {
+            background-color: var(--light);
+            padding: 15px 0;
+        }
+        
+        .breadcrumb ol {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .breadcrumb li:not(:last-child)::after {
+            content: '/';
+            margin-left: 8px;
+            color: var(--gray);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--primary-dark));
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        /* Mobile Dropdown Styles */
+        .mobile-dropdown {
+            display: none;
+            padding-left: 20px;
+        }
+        
+        .mobile-dropdown.active {
+            display: block;
+        }
+        
+        .mobile-dropdown-item {
+            display: block;
+            padding: 12px 0;
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .portal-header {
+            background: linear-gradient(rgba(30, 64, 175, 0.9), rgba(30, 58, 138, 0.9)), url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .portal-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            overflow: hidden;
+        }
+        
+        .portal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
+        }
+        
+        .form-input {
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            padding: 14px 16px;
+            transition: all 0.3s;
+            width: 100%;
+            font-size: 16px;
+        }
+        
+        .form-input:focus {
+            border-color: #1E40AF;
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.2);
+            outline: none;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(90deg, #1E40AF 0%, #1E3A8A 100%);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(90deg, #F59E0B 0%, #D97706 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #1E40AF;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+            border: 2px solid #1E40AF;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        
+        .btn-secondary:hover {
+            background: #1E40AF;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .main-footer {
+            background: linear-gradient(90deg, #1E40AF 0%, #1E3A8A 100%);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-column-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: #F59E0B;
+            border-radius: 2px;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1E40AF;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: #F59E0B;
+            border-radius: 2px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .social-icon:hover {
+            background: #F59E0B;
+            transform: translateY(-3px);
+        }
+        
+        .portal-tab {
+            padding: 16px 24px;
+            background: #F3F4F6;
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .portal-tab.active {
+            background: white;
+            color: #1E40AF;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: #1E40AF;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: white;
+            font-size: 24px;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #6B7280;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            height: 100%;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .status-active {
+            background: #10B981;
+            color: white;
+        }
+        
+        .status-pending {
+            background: #F59E0B;
+            color: white;
+        }
+        
+        .status-expired {
+            background: #EF4444;
+            color: white;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .portal-header {
+                background-attachment: scroll;
+            }
+            
+            .portal-tabs {
+                flex-direction: column;
+            }
+            
+            .portal-tab {
+                border-radius: 8px;
+                margin-bottom: 8px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-4 mb-2 md:mb-0">
+                    <span><i class="fas fa-phone mr-1"></i> +234 703 908 016</span>
+                    <span><i class="fas fa-envelope mr-1"></i> info@manowarng.org</span>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="https://www.facebook.com/share/16qxC72Uub/?mibextid=wwXIfr" class="text-white hover:text-accent transition"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.tiktok.com/@manowarnigeria1?_t=ZS-8zNK3yGn8c4&_r=1" class="text-white hover:text-accent transition"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/manowarng_hq?igsh=MXU4ejM4dXBqcWJ1MQ==" class="text-white hover:text-accent transition"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/@manowarng?si=4n4R3DnsHsRHz3kP" class="text-white hover:text-accent transition"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="logo-container">
+                    <img src="images/manowarlogo.png" alt="Man O' War Nigeria Logo" class="logo-img mr-3">
+                    <div class="logo-text">
+                
+                <div class="hidden lg:flex space-x-6 items-center">
+                    <a href="index.html" class="nav-link font-medium">Home</a>
+                    <a href="about.html" class="nav-link font-medium">About Us</a>
+                    <a href="courses.html" class="nav-link font-medium">Courses</a>
+                    
+                    <!-- Directorates Dropdown -->
+                    <div class="dropdown relative group">
+                        <a href="../directorates/index.html" class="nav-link font-medium flex items-center">
+                            Directorates <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </a>
+                        <div class="dropdown-menu absolute left-0 mt-2 w-64 bg-white rounded-md shadow-lg py-2 z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                            <a href="../directorates/admin-logistics.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Admin & Logistics</a>
+                            <a href="../directorates/operations-rescue.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Operations & Rescue</a>
+                            <a href="../directorates/account-finance.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Account & Finance</a>
+                            <a href="../directorates/legal-provost.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Legal Service & Provost</a>
+                            <a href="../directorates/pr-media.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">PR Communication & Media</a>
+                            <a href="../directorates/training.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Training</a>
+                            <a href="../directorates/intelligence.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Intelligence & Information</a>
+                            <a href="../directorates/medical-welfare.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Medical & Welfare</a>
+                        </div>
+                    </div>
+                    
+                    <a href="formation.html" class="nav-link font-medium active">Formation</a>
+                    <a href="news.html" class="nav-link font-medium">News</a>
+                    <a href="gallery.html" class="nav-link font-medium">Gallery</a>
+                    <a href="contact.html" class="nav-link font-medium">Contact Us</a>
+                    <a href="portal.html" class="portal-button"><i class="fas fa-user-circle mr-2"></i> Portal</a>
+                </div>
+                
+                <button class="lg:hidden text-primary text-2xl" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="bg-light py-4">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+                <a href="index.html" class="hover:text-primary">Home</a>
+                <span><i class="fas fa-chevron-right text-xs"></i></span>
+                <span class="text-primary">Portal</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Header -->
+    <section class="portal-header text-white py-16 md:py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Member Portal</h1>
+            <p class="text-xl md:text-2xl max-w-3xl mx-auto">Access exclusive resources, verify membership, and manage your profile</p>
+        </div>
+    </section> 
+
+    <!-- Portal Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="portal-card">
+                    <!-- Tabs -->
+                    <div class="flex portal-tabs border-b">
+                        <div class="portal-tab active" data-tab="login">Login</div>
+                        <div class="portal-tab" data-tab="register">Register</div>
+                        <div class="portal-tab" data-tab="recover">Recover Account</div>
+                    </div>
+                    
+                    <!-- Login Form -->
+                    <div class="tab-content active p-8" id="login">
+                        <h2 class="text-2xl font-bold text-primary mb-6">Login to Your Account</h2>
+                        <form class="space-y-6">
+                            <div>
+                                <label for="login-email" class="form-label">Email Address</label>
+                                <input type="email" id="login-email" class="form-input" placeholder="your.email@example.com">
+                            </div>
+                            
+                            <div class="relative">
+                                <label for="login-password" class="form-label">Password</label>
+                                <input type="password" id="login-password" class="form-input pr-12" placeholder="Enter your password">
+                                <span class="password-toggle" id="login-password-toggle"><i class="fas fa-eye"></i></span>
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="remember" class="h-4 w-4 text-primary border-gray-300 rounded">
+                                    <label for="remember" class="ml-2 text-gray-700">Remember me</label>
+                                </div>
+                                <a href="#" class="text-primary hover:text-primaryDark text-sm">Forgot password?</a>
+                            </div>
+                            
+                            <button type="submit" class="btn-primary">Login to Account</button>
+                            
+                            <div class="text-center text-gray-600 my-4">Or login with</div>
+                            
+                            <div class="grid grid-cols-2 gap-4">
+                                <button type="button" class="btn-secondary"><i class="fab fa-google mr-2"></i> Google</button>
+                                <button type="button" class="btn-secondary"><i class="fab fa-microsoft mr-2"></i> Microsoft</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Registration Form -->
+                    <div class="tab-content p-8" id="register">
+                        <h2 class="text-2xl font-bold text-primary mb-6">Create New Account</h2>
+                        <form class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="first-name" class="form-label">First Name</label>
+                                    <input type="text" id="first-name" class="form-input" placeholder="John">
+                                </div>
+                                <div>
+                                    <label for="last-name" class="form-label">Last Name</label>
+                                    <input type="text" id="last-name" class="form-input" placeholder="Doe">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="register-email" class="form-label">Email Address</label>
+                                <input type="email" id="register-email" class="form-input" placeholder="your.email@example.com">
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="relative">
+                                    <label for="register-password" class="form-label">Password</label>
+                                    <input type="password" id="register-password" class="form-input pr-12" placeholder="Create a password">
+                                    <span class="password-toggle" id="register-password-toggle"><i class="fas fa-eye"></i></span>
+                                </div>
+                                <div class="relative">
+                                    <label for="confirm-password" class="form-label">Confirm Password</label>
+                                    <input type="password" id="confirm-password" class="form-input pr-12" placeholder="Confirm your password">
+                                    <span class="password-toggle" id="confirm-password-toggle"><i class="fas fa-eye"></i></span>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="state" class="form-label">State Command</label>
+                                    <select id="state" class="form-input">
+                                        <option value="">Select your state</option>
+                                        <option value="Ogun">Ogun</option>
+                                        <option value="lagos">Lagos</option>
+                                        <option value="Oyo">Oyo</option>
+                                        <option value="abuja">Abuja</option>
+                                        <option value="rivers">Rivers</option>
+                                        <option value="kano">Kano</option>
+                                        <option value="others">Other States</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="membership" class="form-label">Membership Type</label>
+                                    <select id="membership" class="form-input">
+                                        <option value="">Select membership type</option>
+                                        <option value="regular">Regular Member</option>
+                                        <option value="cadet">Cadet</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <input type="checkbox" id="terms" class="h-4 w-4 text-primary border-gray-300 rounded">
+                                <label for="terms" class="ml-2 text-gray-700">I agree to the <a href="#" class="text-primary hover:text-primaryDark">Terms of Service</a> and <a href="#" class="text-primary hover:text-primaryDark">Privacy Policy</a></label>
+                            </div>
+                            
+                            <button type="submit" class="btn-primary">Create Account</button>
+                        </form>
+                    </div>
+                    
+                    <!-- Account Recovery Form -->
+                    <div class="tab-content p-8" id="recover">
+                        <h2 class="text-2xl font-bold text-primary mb-6">Recover Your Account</h2>
+                        <p class="text-gray-700 mb-6">Enter your email address and we'll send you instructions to reset your password.</p>
+                        
+                        <form class="space-y-6">
+                            <div>
+                                <label for="recover-email" class="form-label">Email Address</label>
+                                <input type="email" id="recover-email" class="form-input" placeholder="your.email@example.com">
+                            </div>
+                            
+                            <button type="submit" class="btn-primary">Send Recovery Instructions</button>
+                            
+                            <div class="text-center mt-4">
+                                <p class="text-gray-700">Remember your password? <a href="#" class="text-primary hover:text-primaryDark switch-tab" data-tab="login">Back to login</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Member Services Section -->
+    <section class="py-16 bg-light">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="section-title">Member Services</h2>
+                <p class="text-gray-700 max-w-3xl mx-auto mt-4">Access exclusive services available to Man O' War Nigeria members</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Membership Verification -->
+                <div class="service-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-primary mb-3">Membership Verification</h3>
+                    <p class="text-gray-700 mb-4">Verify your membership status and access your digital membership card.</p>
+                    <button class="btn-primary">Verify Membership</button>
+                </div>
+                
+                <!-- Revalidation -->
+                <div class="service-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-primary mb-3">Member Revalidation</h3>
+                    <p class="text-gray-700 mb-4">Revalidate your membership to maintain active status and access all benefits.</p>
+                    <button class="btn-primary">Revalidate Now</button>
+                </div>
+                
+                <!-- ID Card Application -->
+                <div class="service-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-address-card"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-primary mb-3">ID Card Application</h3>
+                    <p class="text-gray-700 mb-4">Apply for or renew your official Man O' War Nigeria identification card.</p>
+                    <button class="btn-primary">Apply for ID Card</button>
+                </div>
+                
+                <!-- Dress Regulation Manual -->
+                <div class="service-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-vest"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-primary mb-3">Dress Regulation Manual</h3>
+                    <p class="text-gray-700 mb-4">Access the official dress code manual and uniform regulations.</p>
+                    <button class="btn-primary">View Manual</button>
+                </div>
+                
+                <!-- Ranking Checker -->
+                <div class="service-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-primary mb-3">Ranking & Appointment Checker</h3>
+                    <p class="text-gray-700 mb-4">Check your current rank, appointment status, and promotion eligibility.</p>
+                    <button class="btn-primary">Check Ranking</button>
+                </div>
+                
+                <!-- Recruitment -->
+                <div class="service-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-primary mb-3">Recruitment Portal</h3>
+                    <p class="text-gray-700 mb-4">Apply to join Man O' War Nigeria or refer new members to the organization.</p>
+                    <button class="btn-primary">Recruitment Info</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Membership Status Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="section-title">Membership Status</h2>
+                <p class="text-gray-700 max-w-3xl mx-auto mt-4">View and manage your membership information</p>
+            </div>
+            
+            <div class="portal-card p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold text-primary mb-4">Your Membership Details</h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between">
+                                <span class="text-gray-700">Membership ID:</span>
+                                <span class="font-semibold">MOWN/NC/001</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-700">Status:</span>
+                                <span class="status-badge status-active">Active</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-700">Membership Type:</span>
+                                <span class="font-semibold">Regular Member</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-700">State Command:</span>
+                                <span class="font-semibold">Ekiti</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-700">Join Date:</span>
+                                <span class="font-semibold">March 15, 2021</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-semibold text-primary mb-4">Quick Actions</h3>
+                        <div class="space-y-4">
+                            <button class="btn-primary">
+                                <i class="fas fa-download mr-2"></i> Download ID Card
+                            </button>
+                            <button class="btn-secondary">
+                                <i class="fas fa-file-pdf mr-2"></i> Membership Certificate
+                            </button>
+                            <button class="btn-primary">
+                                <i class="fas fa-sync-alt mr-2"></i> Revalidate Membership
+                            </button>
+                            <button class="btn-secondary">
+                                <i class="fas fa-user-edit mr-2"></i> Update Profile
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recruitment Section -->
+    <section class="py-16 bg-light">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="section-title">Join Man O' War Nigeria</h2>
+                <p class="text-gray-700 max-w-3xl mx-auto mt-4">Become part of Nigeria's premier youth organization for discipline and service</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-semibold text-primary mb-6">Recruitment Process</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="bg-primary rounded-full h-8 w-8 flex items-center justify-center text-white font-bold mr-4">1</div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-2">Application Submission</h4>
+                                <p class="text-gray-700">Complete the online application form with your personal details.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-primary rounded-full h-8 w-8 flex items-center justify-center text-white font-bold mr-4">2</div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-2">Screening & Documentation</h4>
+                                <p class="text-gray-700">Submit required documents and undergo initial screening.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-primary rounded-full h-8 w-8 flex items-center justify-center text-white font-bold mr-4">3</div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-2">Interview</h4>
+                                <p class="text-gray-700">Attend an interview with unit commanders and officials.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-primary rounded-full h-8 w-8 flex items-center justify-center text-white font-bold mr-4">4</div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-2">Medical Fitness Test</h4>
+                                <p class="text-gray-700">Complete a basic medical fitness assessment.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-primary rounded-full h-8 w-8 flex items-center justify-center text-white font-bold mr-4">5</div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-2">Orientation & Training</h4>
+                                <p class="text-gray-700">Participate in orientation and basic training program.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-2xl font-semibold text-primary mb-6">Start Your Application</h3>
+                    <div class="portal-card p-8">
+                        <form class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="recruit-first-name" class="form-label">First Name</label>
+                                    <input type="text" id="recruit-first-name" class="form-input" placeholder="John">
+                                </div>
+                                <div>
+                                    <label for="recruit-last-name" class="form-label">Last Name</label>
+                                    <input type="text" id="recruit-last-name" class="form-input" placeholder="Doe">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="recruit-email" class="form-label">Email Address</label>
+                                <input type="email" id="recruit-email" class="form-input" placeholder="your.email@example.com">
+                            </div>
+                            
+                            <div>
+                                <label for="recruit-phone" class="form-label">Phone Number</label>
+                                <input type="tel" id="recruit-phone" class="form-input" placeholder="+234 800 000 0000">
+                            </div>
+                            
+                            <div>
+                                <label for="recruit-state" class="form-label">State of Residence</label>
+                                <select id="recruit-state" class="form-input">
+                                    <option value="">Select your state</option>
+                                        <option value="Ogun">Ogun</option>
+                                        <option value="lagos">Lagos</option>
+                                        <option value="Oyo">Oyo</option>
+                                        <option value="abuja">Abuja</option>
+                                        <option value="rivers">Rivers</option>
+                                        <option value="kano">Kano</option>
+                                        <option value="others">Other States</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="recruit-age" class="form-label">Age</label>
+                                <input type="number" id="recruit-age" class="form-input" placeholder="18">
+                            </div>
+                            
+                            <button type="submit" class="btn-primary">Start Application</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- About Column -->
+                <div>
+                    <h3 class="footer-column-title">About Us</h3>
+                    <p class="text-gray-300 mb-4">Man O' War Nigeria is a paramilitary youth organization focused on developing young Nigerians through discipline, patriotism and community service.</p>
+                    <div class="flex space-x-4">
+                    <a href="https://www.facebook.com/share/16qxC72Uub/?mibextid=wwXIfr" class="text-white hover:text-accent transition"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.tiktok.com/@manowarnigeria1?_t=ZS-8zNK3yGn8c4&_r=1" class="text-white hover:text-accent transition"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/manowarng_hq?igsh=MXU4ejM4dXBqcWJ1MQ==" class="text-white hover:text-accent transition"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/@manowarng?si=4n4R3DnsHsRHz3kP" class="text-white hover:text-accent transition"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links Column -->
+                <div>
+                    <h3 class="footer-column-title">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="index.html" class="text-gray-300 hover:text-white transition">Home</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-white transition">About Us</a></li>
+                        <li><a href="formation.html" class="text-gray-300 hover:text-white transition">Formation</a></li>
+                        <li><a href="directorates.html" class="text-gray-300 hover:text-white transition">Directorates</a></li>
+                        <li><a href="portal.html" class="text-gray-300 hover:text-white transition">Portal</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Programs Column -->
+                <div>
+                    <h3 class="footer-column-title">Programs</h3>
+                    <ul class="space-y-3">
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Youth Development</a></li>
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Community Service</a></li>
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Emergency Response</a></li>
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Adventure Training</a></li>
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Skills Acquisition</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Column -->
+                <div>
+                    <h3 class="footer-column-title">Contact Us</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3"></i>
+                            <span>National Headquarters, Abuja</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-3"></i>
+                            <span>+234 703 908 0161</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3"></i>
+                            <span>info@manowarng.org</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-8 text-center text-gray-300 text-sm">
+                <p>&copy; 2025 Man O' War Nigeria. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu (hidden by default) -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="absolute top-4 right-4 text-white text-3xl" id="closeMenu">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <div class="text-center w-full px-8">
+            <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto mb-8">
+                <img src="../images/manowarlogo" alt="Logo" class="h-12">
+            </div>
+            
+            <nav class="flex flex-col space-y-6 text-white text-xl mb-8">
+                <a href="index.html" class="hover:text-accent transition">Home</a>
+                <a href="about.html" class="hover:text-accent transition">About Us</a>
+                <a href="courses.html" class="hover:text-accent transition">Courses</a>
+                
+                <!-- Directorates Mobile Dropdown Trigger -->
+                <a href="#" class="hover:text-accent transition flex items-center justify-center" id="mobileDirectoratesToggle">
+                    Directorates <i class="fas fa-chevron-down ml-2 text-sm"></i>
+                </a>
+                
+                <!-- Directorates Mobile Dropdown -->
+                <div class="mobile-dropdown" id="mobileDirectoratesDropdown">
+                    <a href="../directorates/admin-logistics.html" class="mobile-dropdown-item">></i> Admin and Logistics</a>
+                    <a href="../directorates/operation-rescue.html" class="mobile-dropdown-item"></i> Operation and Rescue</a>
+                    <a href="../directorates/account-finance.html" class="mobile-dropdown-item"></i> Account and Finance</a>
+                    <a href="../directorates/legal-provost.html" class="mobile-dropdown-item"></i> Legal Service and Provost</a>
+                    <a href="../directorates/pr-communication.html" class="mobile-dropdown-item"></i> PR Communication and Media</a>
+                    <a href="../directorates/training.html" class="mobile-dropdown-item"></i> Training</a>
+                    <a href="../directorates/intelligence.html" class="mobile-dropdown-item"></i> Intelligence and Information</a>
+                    <a href="../directorates/medical-welfare.html" class="mobile-dropdown-item"></i> Medical and Welfare</a>
+                </div>
+                
+                <a href="formation.html" class="hover:text-accent transition">Formation</a>
+                <a href="news.html" class="hover:text-accent transition">News</a>
+                <a href="gallery.html" class="hover:text-accent transition">Gallery</a>
+                <a href="contact.html" class="hover:text-accent transition">Contact Us</a>
+                <a href="portal.html" class="inline-block bg-primary hover:bg-accent text-white font-bold py-3 px-6 rounded-lg mt-4 transition duration-300">
+                    <i class="fas fa-user-circle mr-2"></i> Portal
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu functionality
+        const menuToggle = document.getElementById('menuToggle');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Mobile directorates dropdown functionality
+        const mobileDirectoratesToggle = document.getElementById('mobileDirectoratesToggle');
+        const mobileDirectoratesDropdown = document.getElementById('mobileDirectoratesDropdown');
+        
+        if (mobileDirectoratesToggle && mobileDirectoratesDropdown) {
+            mobileDirectoratesToggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                mobileDirectoratesDropdown.classList.toggle('active');
+            });
+        }
+
+        // Tab functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.portal-tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Update active tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show active tab content
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === tabId) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+            
+            // Switch tab links
+            const switchTabLinks = document.querySelectorAll('.switch-tab');
+            switchTabLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Update active tab
+                    tabs.forEach(t => {
+                        t.classList.remove('active');
+                        if (t.getAttribute('data-tab') === tabId) {
+                            t.classList.add('active');
+                        }
+                    });
+                    
+                    // Show active tab content
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === tabId) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+            
+            // Password toggle functionality
+            const passwordToggles = document.querySelectorAll('.password-toggle');
+            passwordToggles.forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const input = this.previousElementSibling;
+                    const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+                    input.setAttribute('type', type);
+                    
+                    // Toggle icon
+                    this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+                });
+            });
+            
+            // Form validation
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Basic validation
+                    let isValid = true;
+                    const inputs = this.querySelectorAll('input[required]');
+                    
+                    inputs.forEach(input => {
+                        if (!input.value.trim()) {
+                            input.style.borderColor = 'red';
+                            isValid = false;
+                        }
+                    });
+                    
+                    if (isValid) {
+                        // In a real application, you would submit the form here
+                        alert('Form submitted successfully!');
+                        this.reset();
+                    }
+                });
+                
+                // Remove error styles when user starts typing
+                const inputs = form.querySelectorAll('input');
+                inputs.forEach(input => {
+                    input.addEventListener('input', function() {
+                        this.style.borderColor = '#E5E7EB';
+                    });
+                });
+            });
+            
+            // Service card buttons
+            const serviceButtons = document.querySelectorAll('.service-card button');
+            serviceButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const service = this.parentElement.querySelector('h3').textContent;
+                    alert(`You selected: ${service}. In a real application, this would redirect you to the appropriate service page.`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

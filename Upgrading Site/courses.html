@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Courses - Man O' War Nigeria</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary: #1E40AF;
+            --primary-dark: #1E3A8A;
+            --secondary: #FFFFFF;
+            --accent: #F59E0B;
+            --light: #F3F4F6;
+            --dark: #1F2937;
+            --gray: #6B7280;
+        }
+        
+        /* Custom CSS with advanced styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .top-bar {
+            background: linear-gradient(90deg, #1E40AF 0%, #1E3A8A 100%);
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+        
+        .main-header {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-link {
+            color: #1F2937;
+            position: relative;
+            padding: 8px 12px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .nav-link:hover {
+            color: #1E40AF;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: #1E40AF;
+            transition: all 0.3s;
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover::after {
+            width: 80%;
+        }
+        
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 250px;
+            background: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 10px 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-item {
+            display: block;
+            padding: 10px 20px;
+            color: var(--dark);
+            transition: all 0.2s ease;
+        }
+        
+        .dropdown-item:hover {
+            background-color: var(--primary);
+            color: white;
+            padding-left: 25px;
+        }
+        
+        .dropdown-item i {
+            margin-right: 10px;
+            width: 18px;
+            text-align: center;
+        }
+        
+        /* Portal Button */
+        .portal-button {
+            background: linear-gradient(90deg, #1E40AF 0%, #1E3A8A 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+        }
+        
+        .portal-button:hover {
+            background: linear-gradient(90deg, #F59E0B 0%, #D97706 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(245, 158, 11, 0.3);
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            background-color: var(--light);
+            padding: 15px 0;
+        }
+        
+        .breadcrumb ol {
+            display: flex;
+            align-items: center;
+        }
+        
+        .breadcrumb li:not(:last-child):after {
+            content: '/';
+            margin: 0 10px;
+            color: #6B7280;
+        }
+        
+        .courses-hero {
+            background: linear-gradient(rgba(30, 64, 175, 0.85), rgba(30, 58, 138, 0.9)), url('https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .filter-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .course-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .course-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .course-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            filter: brightness(0.9);
+        }
+        
+        .course-card:hover .course-image img {
+            transform: scale(1.05);
+            filter: brightness(1);
+        }
+        
+        .course-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .course-category {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .course-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0.75rem 0;
+            color: var(--primary);
+        }
+        
+        .course-description {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+        
+        .course-price {
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .course-link {
+            color: var(--primary);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .course-link:hover {
+            color: var(--primary-dark);
+            gap: 5px;
+        }
+        
+        .benefit-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .benefit-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.75rem;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .benefit-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .main-footer {
+            background: linear-gradient(to right, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+        
+        .footer-column-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-column-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--primary-dark));
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        /* Mobile Dropdown Styles */
+        .mobile-dropdown {
+            display: none;
+            padding-left: 20px;
+        }
+        
+        .mobile-dropdown.active {
+            display: block;
+        }
+        
+        .mobile-dropdown-item {
+            display: block;
+            padding: 12px 0;
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Logo Styling */
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+        
+        .mobile-logo {
+            height: 70px;
+            width: auto;
+            margin-bottom: 20px;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1E40AF',
+                        primaryDark: '#1E3A8A',
+                        secondary: '#FFFFFF',
+                        accent: '#F59E0B',
+                        light: '#F3F4F6',
+                        dark: '#1F2937',
+                        gray: '#6B7280',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-4 mb-2 md:mb-0">
+                    <span><i class="fas fa-phone mr-1"></i> +234 703 908 0161</span>
+                    <span><i class="fas fa-envelope mr-1"></i> info@manowarng.org</span>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="https://www.facebook.com/share/16qxC72Uub/?mibextid=wwXIfr" class="text-white hover:text-accent transition"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.tiktok.com/@manowarnigeria1?_t=ZS-8zNK3yGn8c4&_r=1" class="text-white hover:text-accent transition"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/manowarng_hq?igsh=MXU4ejM4dXBqcWJ1MQ==" class="text-white hover:text-accent transition"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/@manowarng?si=4n4R3DnsHsRHz3kP" class="text-white hover:text-accent transition"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Header -->
+    <header class="main-header">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="logo-container">
+                    <img src="images/manowarlogo.png" alt="Man O' War Nigeria Logo" class="logo-img mr-3">
+                    <div class="logo-text">
+                </div>
+                
+                <div class="hidden lg:flex items-center space-x-6">
+                    <a href="index.html" class="nav-link font-medium">Home</a>
+                    <a href="about.html" class="nav-link font-medium">About Us</a>
+                    <a href="courses.html" class="nav-link font-medium">Courses</a>
+                    
+                    <!-- Directorates Dropdown -->
+                    <div class="dropdown relative group">
+                        <a href="../directorates/index.html" class="nav-link font-medium flex items-center">
+                            Directorates <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </a>
+                        <div class="dropdown-menu absolute left-0 mt-2 w-64 bg-white rounded-md shadow-lg py-2 z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                            <a href="../directorates/admin-logistics.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Admin & Logistics</a>
+                            <a href="../directorates/operations-rescue.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Operations & Rescue</a>
+                            <a href="../directorates/account-finance.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Account & Finance</a>
+                            <a href="../directorates/legal-provost.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Legal Service & Provost</a>
+                            <a href="../directorates/pr-media.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">PR Communication & Media</a>
+                            <a href="../directorates/training.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Training</a>
+                            <a href="../directorates/intelligence.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Intelligence & Information</a>
+                            <a href="../directorates/medical-welfare.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Medical & Welfare</a>
+                        </div>
+                    </div>
+                    
+                    <a href="formation.html" class="nav-link font-medium">Formation</a>
+                    <a href="news.html" class="nav-link font-medium">News</a>
+                    <a href="gallery.html" class="nav-link font-medium">Gallery</a>
+                    <a href="contact.html" class="nav-link font-medium">Contact Us</a>
+                    <a href="portal.html" class="portal-button"><i class="fas fa-user-circle mr-2"></i>Portal</a>
+                </div>
+                
+                <button class="lg:hidden text-primary text-2xl" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container mx-auto px-4">
+            <ol>
+                <li><a href="index.html" class="text-primary hover:text-primary-dark transition">Home</a></li>
+                <li class="text-gray-600">Courses</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="courses-hero text-white py-20 md:py-28">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">Training Courses</h2>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Comprehensive training programs for youth development and leadership</p>
+            <a href="#courses" class="inline-block bg-accent hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105">
+                Explore Courses
+            </a>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-center mb-12">Our Training Programs</h2>
+            
+            <!-- Course Filter -->
+            <div class="flex justify-center mb-12">
+                <div class="inline-flex rounded-md shadow-sm" role="group">
+                    <button type="button" class="filter-btn px-6 py-3 text-sm font-medium rounded-l-lg active" data-filter="all">
+                        All Courses
+                    </button>
+                    <button type="button" class="filter-btn px-6 py-3 text-sm font-medium border-l-0" data-filter="leadership">
+                        Leadership
+                    </button>
+                    <button type="button" class="filter-btn px-6 py-3 text-sm font-medium border-l-0 rounded-r-md" data-filter="skills">
+                        Skills Development
+                    </button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Course Card 1 -->
+                <div class="course-card" data-category="leadership">
+                    <div class="course-image">
+                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Leadership Training">
+                    </div>
+                    <div class="course-content">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="course-category bg-primary text-white">Leadership</span>
+                            <span class="text-primary font-bold">6 Weeks</span>
+                        </div>
+                        <h3 class="course-title">Basic Leadership Training</h3>
+                        <p class="course-description">Fundamental leadership skills development for cadets and new members.</p>
+                        <div class="course-meta">
+                            <span class="course-price">Free</span>
+                            <a href="#" class="course-link">
+                                Learn More <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course Card 2 -->
+                <div class="course-card" data-category="skills">
+                    <div class="course-image">
+                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Community Service">
+                    </div>
+                    <div class="course-content">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="course-category bg-accent text-white">Skills Development</span>
+                            <span class="text-primary font-bold">8 Weeks</span>
+                        </div>
+                        <h3 class="course-title">Community Service Training</h3>
+                        <p class="course-description">Learn effective community engagement and service project management.</p>
+                        <div class="course-meta">
+                            <span class="course-price">Free</span>
+                            <a href="#" class="course-link">
+                                Learn More <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course Card 3 -->
+                <div class="course-card" data-category="leadership">
+                    <div class="course-image">
+                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Emergency Response">
+                    </div>
+                    <div class="course-content">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="course-category bg-primary text-white">Leadership</span>
+                            <span class="text-primary font-bold">12 Weeks</span>
+                        </div>
+                        <h3 class="course-title">Advanced Command Training</h3>
+                        <p class="course-description">Advanced leadership and command skills for unit leaders and officers.</p>
+                        <div class="course-meta">
+                            <span class="course-price">₦25,000</span>
+                            <a href="#" class="course-link">
+                                Learn More <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Training Benefits Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-center mb-12">Benefits of Our Training Programs</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="benefit-title">Leadership Skills</h3>
+                    <p class="text-gray-700">Develop essential leadership qualities and team management abilities.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h3 class="benefit-title">Community Service</h3>
+                    <p class="text-gray-700">Learn to organize and execute effective community service projects.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-first-aid"></i>
+                    </div>
+                    <h3 class="benefit-title">Emergency Response</h3>
+                    <p class="text-gray-700">Gain skills in emergency response and disaster management.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="benefit-title">Certification</h3>
+                    <p class="text-gray-700">Receive nationally recognized certification upon completion.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="py-16 bg-primary">
+        <div class="container mx-auto px-4 text-center text-white">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Transform Your Potential?</h2>
+            <p class="text-xl mb-8 max-w-3xl mx-auto">Join our training programs today and develop the skills needed for leadership and community service</p>
+            <a href="contact.html" class="inline-block bg-accent hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105">
+                Register Now
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- About Column -->
+                <div>
+                    <h3 class="footer-column-title">About Us</h3>
+                    <p class="text-gray-300 mb-4">Man O' War Nigeria is a paramilitary youth organization focused on developing young Nigerians through discipline, patriotism and community service.</p>
+                    <div class="flex space-x-4">
+                    <a href="https://www.facebook.com/share/16qxC72Uub/?mibextid=wwXIfr" class="text-white hover:text-accent transition"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.tiktok.com/@manowarnigeria1?_t=ZS-8zNK3yGn8c4&_r=1" class="text-white hover:text-accent transition"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/manowarng_hq?igsh=MXU4ejM4dXBqcWJ1MQ==" class="text-white hover:text-accent transition"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/@manowarng?si=4n4R3DnsHsRHz3kP" class="text-white hover:text-accent transition"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links Column -->
+                <div>
+                    <h3 class="footer-column-title">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="index.html" class="text-gray-300 hover:text-white transition">Home</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-white transition">About Us</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-white transition">Our History</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-white transition">Leadership</a></li>
+                        <li><a href="../directorates/index.html" class="text-gray-300 hover:text-white transition">Directorates</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Programs Column -->
+                <div>
+                    <h3 class="footer-column-title">Programs</h3>
+                    <ul class="space-y-3">
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Youth Development</a></li>
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Community Service</a></li>
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Emergency Response</a></li>
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Adventure Training</a></li>
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Skills Acquisition</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Column -->
+                <div>
+                    <h3 class="footer-column-title">Contact Us</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3"></i>
+                            <span>National Headquarters, Abuja</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-3"></i>
+                            <span>+234 703 908 0161</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3"></i>
+                            <span>info@manowarng.org</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-8 text-center text-gray-300 text-sm">
+                <p>&copy; 2025 Man O' War Nigeria. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu (hidden by default) -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="absolute top-4 right-4 text-white text-3xl" id="closeMenu">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <div class="text-center w-full px-8">
+            <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto mb-8">
+                <img src="../images/manowarlogo" alt="Logo" class="h-12">
+            </div>
+            
+            <nav class="flex flex-col space-y-6 text-white text-xl mb-8">
+                <a href="index.html" class="hover:text-accent transition">Home</a>
+                <a href="about.html" class="hover:text-accent transition">About Us</a>
+                <a href="courses.html" class="hover:text-accent transition">Courses</a>
+                
+                <!-- Directorates Mobile Dropdown Trigger -->
+                <a href="#" class="hover:text-accent transition flex items-center justify-center" id="mobileDirectoratesToggle">
+                    Directorates <i class="fas fa-chevron-down ml-2 text-sm"></i>
+                </a>
+                
+                <!-- Directorates Mobile Dropdown -->
+                <div class="mobile-dropdown" id="mobileDirectoratesDropdown">
+                    <a href="../directorates/admin-logistics.html" class="mobile-dropdown-item"></i> Admin and Logistics</a>
+                    <a href="../directorates/operation-rescue.html" class="mobile-dropdown-item"></i> Operation and Rescue</a>
+                    <a href="../directorates/account-finance.html" class="mobile-dropdown-item"></i> Account and Finance</a>
+                    <a href="../directorates/legal-provost.html" class="mobile-dropdown-item"></i> Legal Service and Provost</a>
+                    <a href="../directorates/pr-communication.html" class="mobile-dropdown-item"></i> PR Communication and Media</a>
+                    <a href="../directorates/training.html" class="mobile-dropdown-item"></i> Training</a>
+                    <a href="../directorates/intelligence.html" class="mobile-dropdown-item"></i> Intelligence and Information</a>
+                    <a href="../directorates/medical-welfare.html" class="mobile-dropdown-item"></i> Medical and Welfare</a>
+                </div>
+                
+                <a href="formation.html" class="hover:text-accent transition">Formation</a>
+                <a href="news.html" class="hover:text-accent transition">News</a>
+                <a href="gallery.html" class="hover:text-accent transition">Gallery</a>
+                <a href="contact.html" class="hover:text-accent transition">Contact Us</a>
+                
+                <!-- Portal Mobile Button - Blue with yellow hover -->
+                <a href="portal.html" class="inline-block bg-primary hover:bg-accent text-white font-bold py-3 px-6 rounded-lg mt-4 transition duration-300">
+                    <i class="fas fa-user-circle mr-2"></i> Portal
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu functionality
+        const menuToggle = document.getElementById('menuToggle');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Mobile directorates dropdown functionality
+        const mobileDirectoratesToggle = document.getElementById('mobileDirectoratesToggle');
+        const mobileDirectoratesDropdown = document.getElementById('mobileDirectoratesDropdown');
+        
+        if (mobileDirectoratesToggle && mobileDirectoratesDropdown) {
+            mobileDirectoratesToggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                mobileDirectoratesDropdown.classList.toggle('active');
+            });
+        }
+        
+        // Course filtering functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const courseCards = document.querySelectorAll('.course-card');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                const filter = button.getAttribute('data-filter');
+                
+                courseCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Man O' War Nigeria - Official Website</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1E40AF',
+                        primaryDark: '#1E3A8A',
+                        secondary: '#FFFFFF',
+                        accent: '#F59E0B',
+                        light: '#F3F4F6',
+                        dark: '#1F2937',
+                        gray: '#6B7280',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom CSS with advanced styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .top-bar {
+            background: linear-gradient(90deg, #1E40AF 0%, #1E3A8A 100%);
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+        
+        .main-header {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-link {
+            color: #1F2937;
+            position: relative;
+            padding: 8px 12px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .nav-link:hover {
+            color: #1E40AF;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: #1E40AF;
+            transition: all 0.3s;
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover::after {
+            width: 80%;
+        }
+        
+        /* Carousel Styles */
+        .carousel {
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+        }
+        
+        .carousel-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .carousel-item {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .carousel-item.active {
+            opacity: 1;
+        }
+        
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            padding: 2rem;
+            color: white;
+        }
+        
+        .carousel-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+        
+        .carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .carousel-indicator.active {
+            background: #F59E0B;
+            transform: scale(1.2);
+        }
+        
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s;
+        }
+        
+        .carousel-nav:hover {
+            background: #F59E0B;
+        }
+        
+        .carousel-prev {
+            left: 20px;
+        }
+        
+        .carousel-next {
+            right: 20px;
+        }
+        
+        /* Stats Section */
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Features Section */
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-img {
+            height: 220px;
+            overflow: hidden;
+        }
+        
+        .feature-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .feature-card:hover .feature-img img {
+            transform: scale(1.05);
+        }
+        
+        .feature-content {
+            padding: 25px;
+        }
+        
+        /* News Section */
+        .news-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .news-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .news-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .news-card:hover .news-img img {
+            transform: scale(1.05);
+        }
+        
+        /* Footer */
+        .main-footer {
+            background: linear-gradient(90deg, #1E40AF 0%, #1E3A8A 100%);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-column-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: #F59E0B;
+            border-radius: 2px;
+        }
+        
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(90deg, #1E40AF 0%, #1E3A8A 100%);
+            color: white;
+            padding: 14px 30px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(90deg, #F59E0B 0%, #D97706 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(245, 158, 11, 0.3);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+            border: 2px solid white;
+        }
+        
+        .btn-outline:hover {
+            background: white;
+            color: #1E40AF;
+            transform: translateY(-2px);
+        }
+        
+        /* Section Titles */
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1E40AF;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: #F59E0B;
+            border-radius: 2px;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1E40AF 0%, #1E3A8A 100%);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s;
+        }
+        
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Mobile Dropdown Styles */
+        .mobile-dropdown {
+            display: none;
+            padding-left: 20px;
+        }
+        
+        .mobile-dropdown.active {
+            display: block;
+        }
+        
+        .mobile-dropdown-item {
+            display: block;
+            padding: 12px 0;
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 1s ease forwards;
+        }
+        
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        
+        /* Commander Section */
+        .commander-section {
+            background: linear-gradient(135deg, #F3F4F6 0%, #E5E7EB 100%);
+            padding: 80px 0;
+        }
+        
+        .commander-content {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .commander-image {
+            height: 400px;
+            overflow: hidden;
+        }
+        
+        .commander-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .commander-info {
+            padding: 40px;
+        }
+        
+        .commander-name {
+            color: #1E40AF;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .commander-title {
+            color: #F59E0B;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        /* Portal Button */
+        .portal-button {
+            background: linear-gradient(90deg, #1E40AF 0%, #1E3A8A 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+        }
+        
+        .portal-button:hover {
+            background: linear-gradient(90deg, #F59E0B 0%, #D97706 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(245, 158, 11, 0.3);
+        }
+        
+        /* Logo Styling */
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+        
+        .mobile-logo {
+            height: 70px;
+            width: auto;
+            margin-bottom: 20px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .carousel {
+                height: 400px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .carousel-caption h2 {
+                font-size: 1.8rem;
+            }
+            
+            .carousel-nav {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .commander-image {
+                height: 300px;
+            }
+            
+            .logo-img {
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-4 mb-2 md:mb-0">
+                    <span><i class="fas fa-phone mr-1"></i> +234 703 908 0161</span>
+                    <span><i class="fas fa-envelope mr-1"></i> info@manowarng.org</span>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="https://www.facebook.com/share/16qxC72Uub/?mibextid=wwXIfr" class="text-white hover:text-accent transition"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.tiktok.com/@manowarnigeria1?_t=ZS-8zNK3yGn8c4&_r=1" class="text-white hover:text-accent transition"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/manowarng_hq?igsh=MXU4ejM4dXBqcWJ1MQ==" class="text-white hover:text-accent transition"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/@manowarng?si=4n4R3DnsHsRHz3kP" class="text-white hover:text-accent transition"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="logo-container">
+                    <img src="images/manowarlogo.png" alt="Man O' War Nigeria Logo" class="logo-img mr-3">
+                    <div class="logo-text">
+                </div>
+                
+                <div class="hidden lg:flex items-center space-x-6">
+                    <a href="index.html" class="nav-link font-medium">Home</a>
+                    <a href="about.html" class="nav-link font-medium">About Us</a>
+                    <a href="courses.html" class="nav-link font-medium">Courses</a>
+                    
+                    <!-- Directorates Dropdown -->
+                    <div class="dropdown relative group">
+                        <a href="./directorates/index.html" class="nav-link font-medium flex items-center">
+                            Directorates <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </a>
+                        <div class="dropdown-menu absolute left-0 mt-2 w-64 bg-white rounded-md shadow-lg py-2 z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                            <a href="./directorates/admin-logistics.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Admin & Logistics</a>
+                            <a href="./directorates/operations-rescue.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Operations & Rescue</a>
+                            <a href="./directorates/account-finance.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Account & Finance</a>
+                            <a href="./directorates/legal-provost.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Legal Service & Provost</a>
+                            <a href="./directorates/pr-media.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">PR Communication & Media</a>
+                            <a href="./directorates/training.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Training</a>
+                            <a href="./directorates/intelligence.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Intelligence & Information</a>
+                            <a href="./directorates/medical-welfare.html" class="block px-4 py-3 text-gray-800 hover:bg-primary hover:text-white">Medical & Welfare</a>
+                        </div>
+                    </div>
+                    
+                    <a href="formation.html" class="nav-link font-medium">Formation</a>
+                    <a href="news.html" class="nav-link font-medium">News</a>
+                    <a href="gallery.html" class="nav-link font-medium">Gallery</a>
+                    <a href="contact.html" class="nav-link font-medium">Contact Us</a>
+                    <a href="portal.html" class="portal-button"><i class="fas fa-user-circle mr-2"></i>Portal</a>
+                </div>
+                
+                <button class="lg:hidden text-primary text-2xl" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Carousel -->
+    <div class="carousel">
+        <div class="carousel-inner">
+            <!-- Slide 1 -->
+            <div class="carousel-item active" style="background-image: url('images/slide 1.jpg');">
+                <div class="carousel-caption">
+                    <h2 class="text-4xl font-bold mb-4">Welcome to Man O' War Nigeria</h2>
+                    <p class="text-xl mb-6">Promoting discipline, patriotism and community service</p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="courses.html" class="btn-primary">Join Us Today</a>
+                        <a href="about.html" class="btn-outline">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 2 -->
+            <div class="carousel-item active" style="background-image: url('images/slide 2.jpg');">
+                <div class="carousel-caption">
+                    <h2 class="text-4xl font-bold mb-4">Community Service Initiatives</h2>
+                    <p class="text-xl mb-6">Making a difference in communities across Nigeria</p>
+                    <a href="courses.html" class="btn-primary">Our Programs</a>
+                </div>
+            </div>
+            
+            <!-- Slide 3 -->
+            <div class="carousel-item" style="background-image: url('images/slide 3.jpg');">
+                <div class="carousel-caption">
+                    <h2 class="text-4xl font-bold mb-4">Youth Development Programs</h2>
+                    <p class="text-xl mb-6">Building the next generation of Nigerian leaders</p>
+                    <a href="courses.html" class="btn-primary">Explore Training</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Carousel Navigation -->
+        <div class="carousel-nav carousel-prev">
+            <i class="fas fa-chevron-left"></i>
+        </div>
+        <div class="carousel-nav carousel-next">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+        
+        <!-- Carousel Indicators -->
+        <div class="carousel-controls">
+            <div class="carousel-indicator active" data-slide="0"></div>
+            <div class="carousel-indicator" data-slide="1"></div>
+            <div class="carousel-indicator" data-slide="2"></div>
+        </div>
+    </div>
+
+    <!-- Stats Section -->
+    <section class="py-16 bg-primary text-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="stat-card animate-fade-in">
+                    <div class="text-4xl font-bold mb-2">36</div>
+                    <div class="text-lg">State Commands</div>
+                </div>
+                <div class="stat-card animate-fade-in delay-100">
+                    <div class="text-4xl font-bold mb-2">200K+</div>
+                    <div class="text-lg">Active Members</div>
+                </div>
+                <div class="stat-card animate-fade-in delay-200">
+                    <div class="text-4xl font-bold mb-2">1M+</div>
+                    <div class="text-lg">Youths Trained</div>
+                </div>
+                <div class="stat-card animate-fade-in delay-300">
+                    <div class="text-4xl font-bold mb-2">40</div>
+                    <div class="text-lg">Years of Service</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- National Commander Section -->
+    <section class="commander-section">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="section-title">Our National Commander</h2>
+                <p class="text-gray-700 max-w-3xl mx-auto mt-4 text-lg">Meet the leader steering the affairs of Man O' War Nigeria</p>
+            </div>
+            
+            <div class="commander-content">
+                <div class="grid grid-cols-1 lg:grid-cols-2">
+                    <div class="commander-image">
+                        <img src="images/National commander.jpeg" alt="National Commander">
+                    </div>
+                    <div class="commander-info">
+                        <h3 class="commander-name">Prince Adedamola Gbenga Emmanuel</h3>
+                        <p class="commander-title">National Commander, Man O' War Nigeria</p>
+                        
+                        <div class="prose prose-lg text-gray-700">
+                            <p>Prince Adedamola Gbenga Emmanuel is a distinguished leader with over 25 years of service in Man O' War Nigeria. He was appointed as the National Commander in 2023 and has since led the organization with vision and dedication.</p>
+                            
+                            <p class="mt-4">Under his leadership, Man O' War Nigeria has expanded its community service initiatives, strengthened partnerships with government agencies, and enhanced youth development programs across all 36 states of the federation.</p>
+                            
+                            <p class="mt-4">A recipient of numerous national awards for his contributions to youth development, NC Adedamola Gbenga Emmanuel holds a master in peace and security studies and is widely recognized as an authority on youth mentorship and community development.</p>
+                            
+                            <blockquote class="border-l-4 border-accent pl-4 italic my-6">
+                                "Our mission is to mold Nigerian youths into disciplined, patriotic and responsible citizens who will contribute positively to national development."
+                            </blockquote>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <a href="about.html" class="btn-primary">Learn More About Leadership</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16 bg-light">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="section-title">Our Core Activities</h2>
+                <p class="text-gray-700 max-w-3xl mx-auto mt-4 text-lg">Man O' War Nigeria is committed to developing young Nigerians through various community service and youth development programs</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature Card 1 -->
+                <div class="feature-card">
+                    <div class="feature-img">
+                        <img src="images/community.jpg" alt="Community Service">
+                    </div>
+                    <div class="feature-content">
+                        <h3 class="text-xl font-semibold text-primary mb-3">Community Service</h3>
+                        <p class="text-gray-700 mb-4">Engaging in various community development projects and environmental sanitation exercises across Nigeria.</p>
+                        <a href="courses.html" class="text-primary font-medium hover:text-primary-dark transition duration-300 inline-flex items-center">
+                            Learn More <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Feature Card 2 -->
+                <div class="feature-card">
+                    <div class="feature-img">
+                        <img src="images/youth-dev.jpg" alt="Youth Development">
+                    </div>
+                    <div class="feature-content">
+                        <h3 class="text-xl font-semibold text-primary mb-3">Youth Development</h3>
+                        <p class="text-gray-700 mb-4">Training and molding young Nigerians to become responsible citizens and future leaders through our programs.</p>
+                        <a href="courses.html" class="text-primary font-medium hover:text-primary-dark transition duration-300 inline-flex items-center">
+                            Learn More <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Feature Card 3 -->
+                <div class="feature-card">
+                    <div class="feature-img">
+                        <img src="images/emergency-res.jpg" alt="Emergency Response">
+                    </div>
+                    <div class="feature-content">
+                        <h3 class="text-xl font-semibold text-primary mb-3">Emergency Response</h3>
+                        <p class="text-gray-700 mb-4">Providing support during emergencies and natural disasters through our trained volunteers nationwide.</p>
+                        <a href="courses.html" class="text-primary font-medium hover:text-primary-dark transition duration-300 inline-flex items-center">
+                            Learn More <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="section-title">Latest News & Updates</h2>
+                <p class="text-gray-700 max-w-3xl mx-auto mt-4 text-lg">Stay informed about our latest activities and events</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="news-card">
+                    <div class="news-img">
+                        <img src="images/Nat-camp.jpg" alt="News 1">
+                    </div>
+                    <div class="p-6">
+                        <span class="text-sm text-accent font-semibold">August 10, 2025</span>
+                        <h3 class="text-xl font-semibold text-primary mb-3 mt-2">Annual Training Exercise Held in Port Hacourt</h3>
+                        <p class="text-gray-700 mb-4">The annual Man O' War leadership training exercise took place at the forest school, Aluu, Port Hacourt with participants from all states.</p>
+                        <a href="#" class="text-primary font-medium hover:text-primary-dark transition duration-300 inline-flex items-center">
+                            Read More <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="news-img">
+                        <img src="images/band-train.jpg" alt="News 2">
+                    </div>
+                    <div class="p-6">
+                        <span class="text-sm text-accent font-semibold">August 13, 2025</span>
+                        <h3 class="text-xl font-semibold text-primary mb-3 mt-2">Band Training</h3>
+                        <p class="text-gray-700 mb-4">The national headquarters has announced the appointment of a band training for all State Command.</p>
+                        <a href="#" class="text-primary font-medium hover:text-primary-dark transition duration-300 inline-flex items-center">
+                            Read More <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="news-img">
+                        <img src="images/community-dev.jpg" alt="News 3">
+                    </div>
+                    <div class="p-6">
+                        <span class="text-sm text-accept font-semibold">August 12, 2025</span>
+                        <h3 class="text-xl font-semibold text-primary mb-3 mt-2">Community Service Project in Ogun State</h3>
+                        <p class="text-gray-700 mb-4">Man O' War members in Ogun State recently completed a road rehabilitation project in Abeokuta South LGA.</p>
+                        <a href="#" class="text-primary font-medium hover:text-primary-dark transition duration-300 inline-flex items-center">
+                            Read More <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="news.html" class="btn-primary">View All News</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- About Column -->
+                <div>
+                    <h3 class="footer-column-title">About Us</h3>
+                    <p class="text-gray-300 mb-4">Man O' War Nigeria is a paramilitary youth organization focused on developing young Nigerians through discipline, patriotism and community service.</p>
+                    <div class="flex space-x-4">
+                    <a href="https://www.facebook.com/share/16qxC72Uub/?mibextid=wwXIfr" class="text-white hover:text-accent transition"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.tiktok.com/@manowarnigeria1?_t=ZS-8zNK3yGn8c4&_r=1" class="text-white hover:text-accent transition"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/manowarng_hq?igsh=MXU4ejM4dXBqcWJ1MQ==" class="text-white hover:text-accent transition"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/@manowarng?si=4n4R3DnsHsRHz3kP" class="text-white hover:text-accent transition"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links Column -->
+                <div>
+                    <h3 class="footer-column-title">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="index.html" class="text-gray-300 hover:text-white transition">Home</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-white transition">About Us</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-white transition">Our History</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-white transition">Leadership</a></li>
+                        <li><a href="./directorates/index.html" class="text-gray-300 hover:text-white transition">Directorates</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Programs Column -->
+                <div>
+                    <h3 class="footer-column-title">Programs</h3>
+                    <ul class="space-y-3">
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Youth Development</a></li>
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Community Service</a></li>
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Emergency Response</a></li>
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Adventure Training</a></li>
+                        <li><a href="courses.html" class="text-gray-300 hover:text-white transition">Skills Acquisition</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Column -->
+                <div>
+                    <h3 class="footer-column-title">Contact Us</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3"></i>
+                            <span>National Headquarters, Abuja</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-3"></i>
+                            <span>+234 703 908 0161</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3"></i>
+                            <span>info@manowarng.org</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-8 text-center text-gray-300 text-sm">
+                <p>&copy; 2025 Man O' War Nigeria. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+<!-- Mobile Menu (hidden by default) -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="absolute top-4 right-4 text-white text-3xl" id="closeMenu">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <div class="text-center w-full px-8">
+            <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto mb-8">
+                <img src="images/manowarlogo.png" alt="Logo" class="h-12">
+            </div>
+            
+            <nav class="flex flex-col space-y-6 text-white text-xl mb-8">
+                <a href="index.html" class="hover:text-accent transition">Home</a>
+                <a href="about.html" class="hover:text-accent transition">About Us</a>
+                <a href="courses.html" class="hover:text-accent transition">Courses</a>
+                
+                <!-- Directorates Mobile Dropdown Trigger -->
+                <a href="#" class="hover:text-accent transition flex items-center justify-center" id="mobileDirectoratesToggle">
+                    Directorates <i class="fas fa-chevron-down ml-2 text-sm"></i>
+                </a>
+                
+                <!-- Directorates Mobile Dropdown -->
+                <div class="mobile-dropdown" id="mobileDirectoratesDropdown">
+                    <a href="./directorates/admin-logistics.html" class="mobile-dropdown-item">></i> Admin and Logistics</a>
+                    <a href="./directorates/operation-rescue.html" class="mobile-dropdown-item"></i> Operation and Rescue</a>
+                    <a href="./directorates/account-finance.html" class="mobile-dropdown-item"></i> Account and Finance</a>
+                    <a href="./directorates/legal-provost.html" class="mobile-dropdown-item"></i> Legal Service and Provost</a>
+                    <a href="./directorates/pr-communication.html" class="mobile-dropdown-item"></i> PR Communication and Media</a>
+                    <a href="./directorates/training.html" class="mobile-dropdown-item"></i> Training</a>
+                    <a href="./directorates/intelligence.html" class="mobile-dropdown-item"></i> Intelligence and Information</a>
+                    <a href="./directorates/medical-welfare.html" class="mobile-dropdown-item"></i> Medical and Welfare</a>
+                </div>
+                
+                <a href="formation.html" class="hover:text-accent transition">Formation</a>
+                <a href="news.html" class="hover:text-accent transition">News</a>
+                <a href="gallery.html" class="hover:text-accent transition">Gallery</a>
+                <a href="contact.html" class="hover:text-accent transition">Contact Us</a>
+                
+                <!-- Portal Mobile Button - Blue with yellow hover -->
+                <a href="portal.html" class="inline-block bg-primary hover:bg-accent text-white font-bold py-3 px-6 rounded-lg mt-4 transition duration-300">
+                    <i class="fas fa-user-circle mr-2"></i> Portal
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu functionality
+        const menuToggle = document.getElementById('menuToggle');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Mobile directorates dropdown functionality
+        const mobileDirectoratesToggle = document.getElementById('mobileDirectoratesToggle');
+        const mobileDirectoratesDropdown = document.getElementById('mobileDirectoratesDropdown');
+        
+        if (mobileDirectoratesToggle && mobileDirectoratesDropdown) {
+            mobileDirectoratesToggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                mobileDirectoratesDropdown.classList.toggle('active');
+            });
+        }
+        
+        // Carousel functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const carouselItems = document.querySelectorAll('.carousel-item');
+            const indicators = document.querySelectorAll('.carousel-indicator');
+            const prevButton = document.querySelector('.carousel-prev');
+            const nextButton = document.querySelector('.carousel-next');
+            let currentIndex = 0;
+            let interval;
+            
+            // Function to show a specific slide
+            function showSlide(index) {
+                // Hide all slides
+                carouselItems.forEach(item => item.classList.remove('active'));
+                indicators.forEach(indicator => indicator.classList.remove('active'));
+                
+                // Show the selected slide
+                carouselItems[index].classList.add('active');
+                indicators[index].classList.add('active');
+                
+                currentIndex = index;
+            }
+            
+            // Function to show next slide
+            function nextSlide() {
+                let nextIndex = (currentIndex + 1) % carouselItems.length;
+                showSlide(nextIndex);
+            }
+            
+            // Function to start auto sliding
+            function startAutoSlide() {
+                interval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+            }
+            
+            // Function to stop auto sliding
+            function stopAutoSlide() {
+                clearInterval(interval);
+            }
+            
+            // Add click events to indicators
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    stopAutoSlide();
+                    showSlide(index);
+                    startAutoSlide();
+                });
+            });
+            
+            // Add click events to navigation buttons
+            if (prevButton && nextButton) {
+                prevButton.addEventListener('click', () => {
+                    stopAutoSlide();
+                    let prevIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
+                    showSlide(prevIndex);
+                    startAutoSlide();
+                });
+                
+                nextButton.addEventListener('click', () => {
+                    stopAutoSlide();
+                    nextSlide();
+                    startAutoSlide();
+                });
+            }
+            
+            // Start auto sliding
+            startAutoSlide();
+            
+            // Pause auto sliding when hovering over carousel
+            const carousel = document.querySelector('.carousel');
+            if (carousel) {
+                carousel.addEventListener('mouseenter', stopAutoSlide);
+                carousel.addEventListener('mouseleave', startAutoSlide);
+            }
+        });
+    </script>
+</body>
+</html>
